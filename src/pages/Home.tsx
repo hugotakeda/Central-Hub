@@ -4,6 +4,7 @@ import { peripheralDevices, illustration, connectionLabel, manufacturer, kindLab
 import { DeviceArt } from '../components/DeviceArt';
 import { Icon } from '../components/Icon';
 import styles from './Home.module.css';
+import { settingsAreReported } from '../domain/reportedSettings';
 export default function Home() {
   const scan = useGearStore(s => s.scan), readings = useGearStore(s => s.readings);
   const scanning = useGearStore(s => s.scanning), scanHid = useGearStore(s => s.scanHid), navigate = useGearStore(s => s.navigate);
@@ -15,7 +16,7 @@ export default function Home() {
     {scan?.error && <p role="status" className="discovery-error">{scan.error}</p>}
     <div className={styles.grid}>{devices.map(device => {
       const reading = readings[device.id]?.snapshot.settings;
-      const mouse = reading?.kind === 'mouse' ? reading : null;
+      const mouse = device.protocol?.mouse ? {battery_percent:device.protocol.mouse.batteryPercent,polling_hz:settingsAreReported(device.protocol.mouse)?device.protocol.mouse.pollingRateHz || null:null} : reading?.kind === 'mouse' ? reading : null;
       return <article className={styles.card} key={device.id}>
         <button className={styles.open} onClick={() => navigate('device', device.id)} aria-label={`Abrir ${device.name}`}><div className={styles.heading}><strong>{device.name}</strong><span className="status-badge"><i/>{device.virtual ? 'Virtual' : mouse ? 'Conectado' : 'Detectado'}</span></div><small>{manufacturer(device)} · {kindLabel(device.kind)}</small><div className={styles.metrics}><span>{connectionLabel(device)}</span>{mouse?.battery_percent !== null && mouse?.battery_percent !== undefined && <span><Icon name="battery" size={14}/>{mouse.battery_percent}%</span>}{mouse?.polling_hz != null && <span><Icon name="speed" size={14}/>{mouse.polling_hz.toLocaleString('pt-BR')} Hz</span>}</div></button><DeviceArt device={illustration(device)}/>
         <div className={styles.actions}><button className="button primary" onClick={() => navigate('device', device.id, canConfigure(device) ? 'performance' : 'overview')}>{canConfigure(device) ? 'Configurar' : 'Ver dispositivo'}</button><button className="button" onClick={() => navigate('test', device.id)} aria-label={`Testar ${device.name}`} title="Teste de hardware"><Icon name="test" size={16}/></button></div>

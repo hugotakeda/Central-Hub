@@ -14,7 +14,7 @@ F75 USB: o app confirma no descritor um feature report 06 de 520 bytes. Envia a 
 
 A resposta observada do teclado foi: 06 82 01 00 01 00 06 00 03 00 00 00 00 CD. Essa consulta identifica o modelo; as alterações usam comandos distintos e validados.
 
-Os pacotes e drivers completos desses projetos não foram incorporados ao app. As referências documentam a origem dos fatos de protocolo; respectivas licenças e avisos permanecem nos projetos citados.
+Na versão 0.0.3, as bibliotecas oficiais e o painel do OpenMouse passaram a ser incorporados sob AGPL-3.0-or-later; consulte [OPENMOUSE.md](OPENMOUSE.md) e [créditos](../THIRD_PARTY_NOTICES.md). Os demais projetos continuam como referências de fatos de protocolo para implementações próprias, com suas licenças e avisos preservados nas fontes originais.
 
 ## Configuração 0.5.0
 

@@ -1,8 +1,10 @@
 [package]
 name = "central-hub"
-version = "0.0.2"
+version = "0.0.3"
 default-run = "central-hub"
 description = "Central Hub — painel local de periféricos"
+license = "AGPL-3.0-or-later"
+repository = "https://github.com/hugotakeda/Central-Hub"
 authors = ["Central Hub"]
 edition = "2021"
 rust-version = "1.82"

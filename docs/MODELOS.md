@@ -1,4 +1,6 @@
-# Modelos — 0.0.2
+# Modelos — 0.0.3
+
+A partir da 0.0.3, o catálogo e os clientes do OpenMouse complementam os modelos locais abaixo. A lista de fotos locais não limita os aparelhos configuráveis. Veja [OPENMOUSE.md](OPENMOUSE.md) para versões, transporte nativo, recursos e limites de validação.
 
 | Produto | Identificação | Configuração |
 |---|---|---|

@@ -12,6 +12,7 @@ mod photo_http;
 mod photo_rules;
 pub mod photos;
 mod pnp;
+pub mod protocol_hid;
 
 use tauri::Manager;
 
@@ -37,6 +38,10 @@ pub fn run() {
             controls::read_device_settings,
             controls::apply_device_setting,
             hardware_test::run_hardware_test,
+            protocol_hid::protocol_inventory,
+            protocol_hid::protocol_open,
+            protocol_hid::protocol_exchange,
+            protocol_hid::protocol_close,
             photos::resolve_device_photo,
             photos::photo_settings,
             photos::set_photo_search_enabled,

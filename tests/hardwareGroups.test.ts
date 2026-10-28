@@ -5,6 +5,22 @@ const hid = (id: string, product: string, usage = 2): HidDevice => ({ id, vendor
 const scan = (devices: HidDevice[] = []): HidScan => ({ devices, audio: [], error: null, available: true });
 const superlight: ModelIdentity = { model: 'superlight', name: 'PRO X Wireless', method: 'HID++', model_code: '4093C0940000' };
 const aula: ModelIdentity = { model: 'f75', name: 'AULA F75', method: 'Sinowealth', model_code: 'CD' };
+
+it('shows a newly identified upstream mouse behind a receiver, without borrowing a local model or photo',()=>{
+  const s=scan([{...hid('configuration','USB Receiver'),physical_id:'new-mouse'}]);
+  s.protocols=[{physicalId:'new-mouse',interfaceId:'configuration',driver:'Razer',kind:'mouse',name:'Razer DeathAdder V3 Pro',brand:'Razer',confirmed:true,error:null,observedAt:1}];
+  const groups=peripheralDevices(s);expect(groups).toHaveLength(1);
+  expect(groups[0]).toMatchObject({id:'new-mouse',name:'Razer DeathAdder V3 Pro',kind:'mouse',identity:'protocol'});
+  expect(groups[0].model).toBeUndefined();expect(canConfigure(groups[0])).toBe(true);
+  expect(illustration(groups[0]).photoQuery).toMatchObject({name:'Razer DeathAdder V3 Pro',manufacturer:'Razer'});
+});
+it('does not surface an unconfirmed receiver or merge two identical physical mice from the upstream registry',()=>{
+  const s=scan([{...hid('a','USB Receiver'),physical_id:'one'},{...hid('b','USB Receiver'),physical_id:'two'}]);
+  s.protocols=[{physicalId:'one',interfaceId:'a',driver:'Logitech',kind:'mouse',name:'USB Receiver',brand:'Logitech',confirmed:false,error:'Sem resposta',observedAt:0}];
+  expect(peripheralDevices(s)).toEqual([]);
+  s.protocols=[{...s.protocols[0],name:'G305',confirmed:true,error:null},{...s.protocols[0],physicalId:'two',interfaceId:'b',name:'G305',confirmed:true,error:null}];
+  expect(peripheralDevices(s).map(g=>g.id)).toEqual(['one','two']);
+});
 describe('hardware discovery identities', () => {
   it('keeps empty and failed discovery empty', () => {
     expect(identifiedDevices(null)).toEqual([]);

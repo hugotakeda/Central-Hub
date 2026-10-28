@@ -1,4 +1,6 @@
-# Arquitetura — 0.0.2
+# Arquitetura — 0.0.3
+
+O fluxo atual acrescenta os clientes e o painel do OpenMouse sobre o transporte HID nativo, conforme [OPENMOUSE.md](OPENMOUSE.md). As descrições históricas abaixo documentam as integrações próprias preservadas; macros e perfis de modelos upstream agora seguem as capacidades e os bloqueios daqueles drivers.
 
 React → Zustand/estado local do formulário → IPC Tauri → Rust → HID/Core Audio.
 
@@ -20,7 +22,7 @@ Em 0.9.1, peripheralDevices seleciona mouses, teclados e headsets físicos para 
 
 Comandos IPC: scan_hardware, read_device_settings, apply_device_setting e set_audio_endpoint. CSP local/IPC e frontend sem permissões de shell/filesystem. Instância única.
 
-Sem providers fictícios, seeds ou persistência de perfis de teste. Escritas de firmware, macros e perfis onboard não fazem parte das rotas de configuração.
+Sem providers fictícios ou perfis que simulem aparelhos. Escritas de firmware não estão integradas. As rotas nativas próprias do F75 não incluem macros ou perfis onboard; o painel incorporado apresenta esses recursos apenas quando disponibilizados pelo driver upstream.
 
 Marca em SVG local. WindowChrome usa as APIs de janela do Tauri, com permissões específicas de minimizar, maximizar/restaurar, fechar e arrastar; sem polling, bibliotecas extras ou transparência de composição. Controles ocultos via opacity e revelados por hover/focus-within; navegação por teclado preservada.
 
@@ -39,3 +41,6 @@ APIs Windows consultadas: https://learn.microsoft.com/en-us/windows/win32/api/se
 Serviço photos.rs isolado do acesso HID; não usa o mutex de configuração. A busca roda em worker, usa WinHTTP/WIC nativos e cache próprio de miniaturas. O frontend conserva a CSP local, exibe a proveniência e mantém a prioridade de fotos locais/cadastradas. Nenhum código de imagem muda o nome, a identidade, os protocolos suportados ou a conexão do hardware.
 
 Detalhes, limites e testes de rede reais: FOTOS-ONLINE.md.
+## Integração OpenMouse na versão 0.0.3
+
+O catálogo e o painel de configuração incorporados estão descritos em [OPENMOUSE.md](OPENMOUSE.md). `src/services/protocols.ts` adapta o inventário e controla as sessões, `nativeHid.ts` oferece a semântica WebHID e `src-tauri/src/protocol_hid.rs` faz a comunicação nativa validada por descritor. A interface do painel é um segundo ponto de entrada local, `protocol/index.html`, carregado somente ao configurar um dispositivo do registro upstream. O F75 e o áudio permanecem nos serviços nativos existentes.

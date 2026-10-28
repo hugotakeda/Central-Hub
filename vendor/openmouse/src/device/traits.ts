@@ -1,0 +1,150 @@
+import type { MouseStatus } from "@openmouse/protocol/drivers/mouse-types";
+
+export interface DriverTraits {
+  advancedSection: boolean;
+  signal: boolean;
+  sleep: boolean;
+  debounce: boolean;
+  eggControls: boolean;
+  eggFamily: boolean;
+  directMode: boolean;
+  ninjutso: boolean;
+  teevolution: boolean;
+  finalmouse: boolean;
+  logitech: boolean;
+}
+
+const NONE: DriverTraits = {
+  advancedSection: false,
+  signal: false,
+  sleep: false,
+  debounce: false,
+  eggControls: false,
+  eggFamily: false,
+  directMode: false,
+  ninjutso: false,
+  teevolution: false,
+  finalmouse: false,
+  logitech: false,
+};
+
+const SHARED_ADVANCED = { advancedSection: true, signal: true, sleep: true, debounce: true } as const;
+const DIRECT_MODE = { advancedSection: true, sleep: true, debounce: true, directMode: true } as const;
+
+const BY_FAMILY: Readonly<Record<string, Partial<DriverTraits>>> = {
+  "logitech-hidpp": { logitech: true },
+  "egg-op1": { advancedSection: true, eggControls: true, eggFamily: true },
+  "egg-we": { eggFamily: true },
+  // OT platform (XM1r/OP1/OP1 RGB): profile/CPI/polling/LOD/macros/LED live
+  // in ot* status fields until dedicated cards land, so only the family flag.
+  "egg-ot": { eggFamily: true },
+  "finalmouse-ulx": { advancedSection: true, finalmouse: true, signal: true },
+  "finalmouse-slx": { advancedSection: true, finalmouse: true, signal: true },
+  pulsar: SHARED_ADVANCED,
+  teevolution: { ...SHARED_ADVANCED, teevolution: true },
+  vgn: SHARED_ADVANCED,
+  wlmouse: DIRECT_MODE,
+  lamzu: DIRECT_MODE,
+  lunafury: DIRECT_MODE,
+  "attack-shark": DIRECT_MODE,
+  bytech: DIRECT_MODE,
+  crdrako: DIRECT_MODE,
+  atk: DIRECT_MODE,
+  "atk-bitmouse": DIRECT_MODE,
+  ninjutso: { ...DIRECT_MODE, ninjutso: true },
+  "keychron-nape": { advancedSection: true, sleep: true, directMode: true },
+  // Launcher's "8k" family (the M6 and most Keychron mice) reads debounce and
+  // sleep from its 0x06 status report and publishes its own option lists, so
+  // it takes the plain flags rather than DIRECT_MODE.
+  "keychron-8k": { advancedSection: true, sleep: true, debounce: true },
+  // Launcher's "1k" protocol has no sleep command, so only debounce.
+  "keychron-1k": { advancedSection: true, debounce: true },
+  // Launcher offers no sleep setting for the 4K family, so only debounce.
+  "keychron-4k": { advancedSection: true, debounce: true },
+  // The 8K Nordic family (G3 Air) keeps debounce and sleep in its system block
+  // and publishes its own option lists for both.
+  "keychron-8k-nordic": { advancedSection: true, sleep: true, debounce: true },
+  // The Beast X 4K skips the compx transport the rest of WLMouse uses and
+  // publishes its own sleep and debounce lists, so it takes the plain flags.
+  "wlmouse-4k": { advancedSection: true, sleep: true, debounce: true },
+  fantech: { advancedSection: true, sleep: true, directMode: true },
+  // GearHub-V5 (Attack Shark R2, Lingbao M5 Pro): reads debounce, standby time
+  // and the two "move correction" toggles out of its OPTIONPARAM0 block. Not a
+  // CompX direct-mode driver — it publishes its own debounce/sleep option
+  // lists, so it takes the plain flags.
+  gearhub: { advancedSection: true, sleep: true, debounce: true },
+  // MCHOSE reads debounce and sleep from its config blob and writes both, but
+  // it is not a direct-mode (CompX) driver, so it takes the plain flags.
+  mchose: { advancedSection: true, sleep: true, debounce: true },
+  rawm: { advancedSection: true, sleep: true, debounce: true },
+  "mchose-a5-gen1": { advancedSection: true, sleep: true, debounce: true },
+  // The A7 V3 generation now writes its settings block, so it takes the same
+  // flags as the V2 above. Like it, this is not a direct-mode (CompX) driver:
+  // it publishes its own sleep and debounce option lists.
+  "mchose-v3": { advancedSection: true, sleep: true, debounce: true },
+  dareu: { advancedSection: true, sleep: true },
+  // The Model O2 Pro 4K/8K writes a debounce block and a motion sync flag; it
+  // has no sleep command wired in, so no sleep flag.
+  "glorious-core2": { advancedSection: true, debounce: true },
+  // Incott supports a 0-30 ms debounce and a 1-900 s sleep timer over its own
+  // vendor protocol, not the CompX direct-mode transport, so it takes the
+  // plain flags rather than DIRECT_MODE (its advancedSection already comes
+  // from ui.showAdvancedSection, but sleep/debounce still need the flags
+  // here or the cards never render regardless of applyPulsarValue's list).
+  incott: { advancedSection: true, sleep: true, debounce: true },
+  // The G-Wolves XVI generation (HTX Mini 8K) publishes its own sleep list
+  // and reads its before-press debounce; no signal-strength command exists.
+  "gwolves-xvi": { advancedSection: true, sleep: true, debounce: true },
+  hyperx: {},
+  "cooler master": { advancedSection: true, debounce: true },
+  "coolermaster-mm711": { advancedSection: true, debounce: true },
+  // The NJ07/NJ08 family keeps the sleep timer in its config block and has no
+  // debounce setting in the vendor panel, so only the sleep card.
+  ajazz: { advancedSection: true, sleep: true },
+  // Hitscan stores a 0-8 ms debounce in flash and publishes its own ceiling.
+  // Its sleep units are unresolved, so the driver hides the sleep card.
+  hitscan: { advancedSection: true, debounce: true },
+};
+
+const BY_BRAND: Readonly<Record<string, string>> = {
+  Teevolution: "teevolution",
+  Orbital: "orbital",
+  Pulsar: "pulsar",
+  VGN: "vgn",
+  Logitech: "logitech-hidpp",
+  "Attack Shark": "attack-shark",
+  IPI: "bytech",
+  "Cooler Master": "cooler master",
+};
+
+export function familyOf(status: MouseStatus): string {
+  return status.ui?.family ?? BY_BRAND[status.brand] ?? status.brand.toLowerCase();
+}
+
+export function traitsFor(status: MouseStatus | null): DriverTraits {
+  if (!status) return NONE;
+  const family = familyOf(status);
+  const ui = status.ui;
+  const traits = { ...NONE, ...BY_FAMILY[family] };
+  // The OP1-8K driver is the only Endgame Gear driver reporting `eggCpiStages`
+  // (egg-we deliberately leaves it out — see egg-we-hid.ts), so the field is
+  // the family tag this brand actually gets from hardware: no EGG driver
+  // publishes a `ui.family`. Everything the "egg-op1" BY_FAMILY entry turns on
+  // has to hang off this flag, or the whole advanced section — filters, GX
+  // switch, CPI, per-button multiclick and mapping — stays off, because
+  // availability.ts gates those cards on `advancedSection`.
+  const egg = traits.eggControls
+    || (status.brand === "Endgame Gear" && Array.isArray(status.eggCpiStages));
+  return {
+    ...traits,
+    advancedSection: traits.advancedSection || egg || ui?.showAdvancedSection === true,
+    signal: traits.signal && ui?.hideSignalCard !== true,
+    sleep: traits.sleep && ui?.hideSleepCard !== true,
+    eggControls: egg,
+    eggFamily: traits.eggFamily || egg,
+  };
+}
+
+export function isPulsarProProtocol(status: MouseStatus): boolean {
+  return status.connectionDetail?.includes("Pulsar Pro protocol") === true;
+}

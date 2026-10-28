@@ -4,6 +4,7 @@ export interface HardwareGroup {
   identity: 'protocol' | 'model-name' | 'interface-group';
   virtual?: boolean;
   system?: SystemDevice[];
+  protocol?: import('../services/protocolTypes').ProtocolDevice;
 }
 const models: { model: ProductModel; name: string; kind: DeviceKind; pattern: RegExp }[] = [
   { model: 'superlight', name: 'G Pro X Superlight', kind: 'mouse', pattern: /\bsuperlight\b(?!\s*(?:2|3|dex)\b)/i },
@@ -58,6 +59,16 @@ export function hardwareGroups(scan: HidScan | null): HardwareGroup[] {
     group.audio.push(endpoint);
     if (!group.model && group.kind === 'unknown') { group.kind = 'audio'; group.name = endpoint.name; }
   }
+  for (const protocol of scan.protocols ?? []) {
+    const group = groups.find(g => g.id === protocol.physicalId || g.hid.some(d => d.id === protocol.interfaceId));
+    if (!group || group.virtual) continue;
+    group.protocol = protocol;
+    if (protocol.confirmed || protocol.catalogOnly) {
+      group.name = group.model ? group.name : protocol.name;
+      group.kind = protocol.kind;
+      group.identity = protocol.catalogOnly ? 'model-name' : 'protocol';
+    }
+  }
   return groups.sort((a, b) => {
     const rank = (g: HardwareGroup) => { const i = models.findIndex(m => m.model === g.model); return i < 0 ? models.length : i; };
     return rank(a) - rank(b) || a.name.localeCompare(b.name, 'pt-BR') || a.id.localeCompare(b.id);
@@ -75,6 +86,8 @@ export function illustration(group: HardwareGroup): DeviceVisual {
   return { id: group.model ?? group.id, kind: group.kind, physicalId: group.id, virtual: group.virtual, photoQuery: { name: group.name, manufacturer: manufacturer(group), kind: group.kind } };
 }
 export function connectionLabel(group: HardwareGroup): string {
+  if(group.protocol?.catalogOnly)return 'Detectado · modelo do catálogo';
+  if (group.protocol?.confirmed) return group.protocol.mouse?.connectionType === 'Wireless' || group.protocol.keyboard?.connectionType === 'Wireless' ? 'Sem fio · identificado' : group.protocol.mouse?.connectionType === 'Wired' || group.protocol.keyboard?.connectionType === 'Wired' ? 'USB · identificado' : 'Protocolo identificado';
   if (isWirelessF75(group)) return group.hid.some(d=>d.identity_cached) ? '2,4 GHz · receptor presente' : '2,4 GHz · identificado';
   if (group.model === 'superlight' && group.identity === 'protocol') return group.hid.some(d => d.product_id === 0xc547) ? 'LIGHTSPEED · identificado' : 'USB · identificado';
   if (group.identity === 'protocol') return 'USB · identificado';
@@ -85,6 +98,6 @@ export function connectionLabel(group: HardwareGroup): string {
 export const hex = (n: number) => n.toString(16).toUpperCase().padStart(4, '0');
 export const kindLabel = (kind: DeviceKind) => ({ mouse: 'Mouse', keyboard: 'Teclado', headset: 'Headset', controller: 'Controle', audio: 'Áudio', unknown: 'Dispositivo' })[kind];
 export const isWirelessF75 = (g: HardwareGroup) => g.model === 'f75' && g.hid.some(d=>d.vendor_id===0x3554 && d.product_id===0xfa09);
-export const supportsSettings = (g: HardwareGroup) => g.identity === 'protocol' && (g.model === 'superlight' || g.model === 'f75');
-export const canConfigure = (g: HardwareGroup) => g.audio.length > 0 || supportsSettings(g);
-export const manufacturer = (g: HardwareGroup) => g.model === 'g-pro-tkl' || g.model === 'superlight' ? 'Logitech' : g.model === 'f75' ? 'Aula' : g.model === 'cloud-flight' ? 'HyperX' : g.hid.find(d => d.manufacturer)?.manufacturer ?? 'Windows';
+export const supportsSettings = (g: HardwareGroup) => !g.protocol && g.identity === 'protocol' && (g.model === 'superlight' || g.model === 'f75');
+export const canConfigure = (g: HardwareGroup) => !!g.protocol || g.audio.length > 0 || supportsSettings(g);
+export const manufacturer = (g: HardwareGroup) => g.protocol?.confirmed ? g.protocol.brand : g.model === 'g-pro-tkl' || g.model === 'superlight' ? 'Logitech' : g.model === 'f75' ? 'Aula' : g.model === 'cloud-flight' ? 'HyperX' : g.hid.find(d => d.manufacturer)?.manufacturer ?? 'Windows';

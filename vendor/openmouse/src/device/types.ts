@@ -1,0 +1,347 @@
+import type { KeyboardWorkspace } from "./keyboard-workspace.ts";
+import type { WuqueDeviceFeature, WuquePerformanceBlock } from "@openmouse/keyboard-protocol/wuque";
+import type { MouseStatus } from "@openmouse/protocol/drivers/mouse-types";
+import type { KsnakeMacroProfile } from "@openmouse/protocol/ksnake";
+import type { KeychronNapeLayerKeymap } from "@openmouse/protocol/keychron";
+import type { LogitechReprogrammableControl } from "@openmouse/protocol/logitech";
+import type { WallhackCurvePoint, WallhackMacroStep } from "@openmouse/protocol/wallhack";
+import type { DpiStageCapabilities, DpiStagePlan, OnboardProfile } from "@openmouse/protocol/drivers/logitech/onboard-profiles";
+import type { InterfacePreferences } from "../features/settings/interface-preferences";
+import type { PreviewMode } from "./preview/preview-modes";
+import type { DriverTraits } from "./traits";
+import type { M2NexProfile } from "./m2nex-profiles";
+
+export type WorkspaceTab = "overview" | "performance" | "buttons" | "macro" | "lighting" | "profiles" | "advanced";
+
+export const WORKSPACE_TAB_ORDER: readonly WorkspaceTab[] = [
+  "overview",
+  "performance",
+  "buttons",
+  "macro",
+  "lighting",
+  "profiles",
+  "advanced",
+];
+
+export type LiftOffLevel = NonNullable<MouseStatus["liftOffDistance"]>;
+export type PulsarToggleSetting =
+  | "motionSync"
+  | "angleSnapping"
+  | "rippleControl"
+  | "performanceMode"
+  | "hyperMode"
+  | "turboMode"
+  | "buttonCombination"
+  | "longRangeMode";
+
+export interface TeevolutionProfile {
+  sleepOptions: readonly number[];
+  debounce: { max: number };
+  performanceTimeOptions: readonly number[];
+  sensorModes: readonly ("Eco" | "High")[];
+  dpiLighting: {
+    modes: readonly (0 | 1 | 2)[];
+    brightness: { min: number; max: number };
+    speed: { min: number; max: number };
+  };
+}
+
+export interface DeviceCapabilities {
+  canDisableSleep: boolean;
+  angleTuningWritable: boolean;
+  dpiStagesWritable: boolean;
+  activeDpiStageWritable: boolean;
+  dpiStageAxesWritable: boolean;
+  sleepOptions: number[] | null;
+  debounceMaxMs: number | null;
+  debounceOptions?: number[] | null;
+  razerSleepOptions: number[] | null;
+  razerLowPowerOptions: number[] | null;
+  lowPowerPollingCeiling: number | null;
+  teevolutionProfile: TeevolutionProfile | null;
+}
+
+export interface SidebarDevice {
+  index: number;
+  name: string;
+  detail: string;
+  selected: boolean;
+  vendorId: number;
+  productId: number;
+  kind: "mouse" | "keyboard";
+  transport: "bridge" | "webhid";
+}
+
+export interface DiagnosticsView {
+  overview: Array<[string, string]>;
+  snapshot: string;
+  reads: string;
+  downloadReady: boolean;
+  downloadStatus: string;
+}
+
+export interface PendingView {
+  count: number;
+  labels: string[];
+  busy: boolean;
+  statusText: string | null;
+  suppressed: boolean;
+  keys: readonly string[];
+}
+
+export interface MagneticCalibrationView {
+  phase: "idle" | "running" | "done" | "failed";
+  message: string;
+  left: number;
+  right: number;
+  step: number;
+  steps: number;
+}
+
+export interface AnalogTuning {
+  actuation: number;
+  rapidTrigger: number;
+  haptics: number;
+  rapidTriggerEnabled?: boolean;
+}
+
+export interface AnalogTuningState {
+  mode: "independent" | "both";
+  left: AnalogTuning;
+  right: AnalogTuning;
+  both: AnalogTuning;
+}
+
+export interface StagedProfileButtonAssignment {
+  layer: "primary" | "g-shift";
+  button: number;
+  value: string;
+}
+
+export type NapeAssignmentControl =
+  | { kind: "key"; col: number }
+  | { kind: "wheel"; clockwise: boolean }
+  | { kind: "orientation" };
+
+export interface StagedNapeAssignment {
+  layer: number;
+  control: NapeAssignmentControl;
+  action: string;
+  keycode: number;
+}
+
+export interface ProfileView {
+  entry: OnboardProfile | null;
+  summary: { name: string; detail: string };
+  slotsAvailable: boolean;
+  slotsLocked: boolean;
+  slotLimits: DpiStageCapabilities | null;
+  lodLevels: readonly string[];
+  rateOptions: { wireless: number[]; wired: number[] };
+  ratesPerProfile: boolean;
+  ratesShared: boolean;
+  ratesLocked: boolean;
+  bunnyHopSupported: boolean;
+}
+
+export type ToastKind = "success" | "error" | "warning" | "info";
+
+export interface Toast {
+  id: number;
+  kind: ToastKind;
+  title: string;
+  detail?: string;
+  action?: {
+    label: string;
+    href: string;
+  };
+  prominent?: boolean;
+  persistent?: boolean;
+  leaving?: boolean;
+}
+
+/**
+ * Keyboard-shaped view of the active device. A keyboard is not a mouse: while
+ * this is populated the mouse `status` stays null and every mouse card stays
+ * unavailable, so the two never mix.
+ */
+export interface KeyboardIdentityView {
+  boardId: number | null;
+  capabilities: WuqueDeviceFeature | null;
+  brand: string;
+  name: string;
+  firmwareVersion: string | null;
+  appVersion: string | null;
+  pcbVersion: string | null;
+  serial: string | null;
+}
+
+export interface KeyboardPollingView {
+  currentHz: number | null;
+  supportedHz: number[];
+}
+
+export interface KeyboardTriggerSettings {
+  travelMm: number;
+  rtFirstTouchMm: number;
+  rapidTriggerPressMm: number;
+  rapidTriggerReleaseMm: number;
+  deadBandPressMm: number;
+  deadBandReleaseMm: number;
+}
+
+export interface KeyboardTriggerKey extends KeyboardTriggerSettings {
+  performance: WuquePerformanceBlock;
+  row: number;
+  col: number;
+  keycode: number;
+  keycodeName: string | null;
+}
+
+/** A partial trigger edit; untouched fields keep the board's live values. */
+export interface KeyboardTriggerPatch {
+  travelMm?: number;
+  rapidTriggerPressMm?: number;
+  rapidTriggerReleaseMm?: number;
+  deadBandPressMm?: number;
+  deadBandReleaseMm?: number;
+}
+
+export interface KeyboardKeyRef {
+  row: number;
+  col: number;
+}
+
+export interface KeyboardTriggerView {
+  /** Raw 6×21 keycode matrix; 0 marks an empty slot. */
+  matrix: readonly (readonly number[])[];
+  keys: readonly KeyboardTriggerKey[];
+  /** Anchor key the trigger controls display, or null when nothing is selected. */
+  selected: KeyboardKeyRef | null;
+  selectedKeys: readonly KeyboardKeyRef[];
+  busy: boolean;
+  statusText: string | null;
+}
+
+export interface KeyboardView {
+  family?: "wuque" | "kochi";
+  name: string;
+  vendorId: number;
+  productId: number;
+  identity: KeyboardIdentityView;
+  polling: KeyboardPollingView;
+  trigger: KeyboardTriggerView;
+  workspace: KeyboardWorkspace;
+}
+
+export interface ControlSnapshot {
+  deviceStatus: MouseStatus | null;
+  status: MouseStatus | null;
+  /** Populated only while a keyboard device is active; mouse `status` stays null then. */
+  keyboard: KeyboardView | null;
+  traits: DriverTraits;
+  capabilities: DeviceCapabilities | null;
+  settingsPending: boolean;
+
+  deviceStatusText: string;
+  readStatus: string;
+  onboardStatus: string;
+  connectDisabled: boolean;
+  connectLabel: string;
+
+  toasts: Toast[];
+
+  devices: SidebarDevice[];
+  hasActiveDevice: boolean;
+  deviceArtwork: string | null;
+  settingInProgress: boolean;
+  atkR1SePlusPairingAvailable: boolean;
+
+  /**
+   * Receiver's own firmware (HID++ 1.0 register 0xF1), read once per
+   * wireless Logitech connection on the same interface (device 0xFF).
+   * Null when wired, non-Logitech, or unreadable — the mouse card is
+   * unaffected either way.
+   */
+  /**
+   * Per-MCU firmware readouts from the receiver (HID++ 1.0 register 0xF1,
+   * one (mcu, index) combo each). MCU numbering follows the dfu package
+   * target entities (MCU1/MPR7, MCU2/CC14). Versions are dotted-decimal
+   * triplets of the raw reply bytes; their mapping to package versions is
+   * established empirically (see firmware-updates.ts).
+   */
+  receiverFirmware: { interfaceId: string; mcus: Array<{ mcu: number; version: string | null; raw: number[] }> } | null;
+
+  preferences: InterfacePreferences;
+  sidebarHidden: boolean;
+  interfaceSettingsOpen: boolean;
+  workspaceTab: WorkspaceTab;
+  deviceView: "list" | "device";
+
+  dpiOptions: number[];
+  customDpiEditing: boolean;
+  customDpiText: string;
+
+  onboardProfiles: OnboardProfile[] | null;
+  /**
+   * Reprogrammable controls, or null on a mouse that has none. Two round-trips
+   * per control is too much for the refresh poll, so this is read on connect
+   * and after a write rather than alongside the status.
+   */
+  buttons: LogitechReprogrammableControl[] | null;
+  editedProfile: number | "host" | null;
+  profilesExpanded: boolean;
+  deviceMode: MouseStatus["deviceMode"];
+  profileFormat: MouseStatus["onboardProfileFormat"];
+  profile: ProfileView;
+  dpiSlotPlan: DpiStagePlan | null;
+  dpiAxisLocks: boolean[];
+  stagedBunnyHopMs: number | null;
+  stagedProfileRates: { wireless: number | null; wired: number | null };
+  stagedProfileName: string | null;
+  stagedButtonMappings: Record<number, number>;
+  /** M2-NEX/K-snake onboard macro slots, prepared locally for a full-table write. */
+  ksnakeMacros: KsnakeMacroProfile[] | null;
+  ksnakeMacrosLoading: boolean;
+  ksnakeMacrosError: string | null;
+  /**
+   * WALLHACK M-001 onboard macro slots (4, up to 30 steps each), read from
+   * the device. Empty slots are null. Macros are saved per slot, so unlike
+   * ksnake there is no staged draft: the card edits a local copy and writes
+   * it through applyWallhackMacroSlot.
+   */
+  wallhackMacros: (WallhackMacroStep[] | null)[] | null;
+  wallhackMacrosLoading: boolean;
+  wallhackMacrosError: string | null;
+  wallhackCurves: Record<"classic" | "natural" | "jump" | "custom", WallhackCurvePoint[]> | null;
+  wallhackCurvesLoading: boolean;
+  wallhackCurvesError: string | null;
+  m2nexProfiles: M2NexProfile[] | null;
+  activeM2NexProfile: number;
+  m2nexProfileDirty: boolean;
+  stagedProfileButtonAssignments: StagedProfileButtonAssignment[];
+  napeKeymap: KeychronNapeLayerKeymap | null;
+  /** Unflashed Nape Pro button and wheel remaps, including other layers. */
+  stagedNapeAssignments: StagedNapeAssignment[];
+  editedNapeLayer: number | null;
+  analogTuning: AnalogTuningState;
+  magneticCalibration: MagneticCalibrationView;
+  eggPollingDivider: number | null;
+
+  pending: PendingView;
+  /** True while the Games page is editing a game profile: edits are staged into a draft that is never flashed. */
+  gameProfileDraft: boolean;
+  /** The report rate a game profile being edited keeps for each connection. */
+  gameProfileRates: { wireless?: number; wired?: number };
+  diagnostics: DiagnosticsView;
+  diagnosticsOpen: boolean;
+  captureAvailable: boolean;
+  resetProfilesAvailable: boolean;
+  setupProfilesAvailable: boolean;
+
+  previewMode: PreviewMode | null;
+  previewEnabled: boolean;
+  previewEntries: Array<[string, string]>;
+  previewListMessage: string | null;
+  buildLabel: string;
+}

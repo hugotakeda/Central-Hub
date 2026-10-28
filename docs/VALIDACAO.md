@@ -1,4 +1,16 @@
-# Validação — Central Hub 0.0.2
+# Validação — Central Hub 0.0.3
+
+## Integração OpenMouse 0.0.3
+
+52 testes frontend e 38 testes unitários nativos passaram. Um teste físico de leitura do protocolo upstream é ignorado por padrão; os quatro testes físicos antigos de escrita do F75 permanecem ignorados. O teste novo de leitura foi executado explicitamente e passou, sem modificar ajustes: Superlight original, nome PRO X Wireless, 800 DPI, 1000 Hz, 36% de bateria, modo Host, quatro identificadores de firmware e 511 opções de DPI.
+
+A primeira consulta upstream pelo adaptador nativo não recebeu a resposta longa enviada pelo receptor à coleção irmã. O agrupamento foi corrigido para reunir as coleções de uma mesma interface USB física, com roteamento por relatório. O teste físico subsequente passou. Testes adicionais cobrem esse caso, aparelhos idênticos em Container IDs distintos, limites do descritor e limpeza de aberturas parciais.
+
+O executável Windows exibiu os três periféricos reais com suas fotos. O botão Configurar do Superlight abriu o painel incorporado em português e preto/grafite, diretamente na aba Desempenho, com 800 DPI e 1000 Hz lidos. A configuração do F75 permanece na integração nativa. Outros modelos do catálogo não foram declarados fisicamente validados. Compilação Tauri e geração do instalador NSIS concluídas.
+
+As bibliotecas e o painel incorporados estão documentados em [OPENMOUSE.md](OPENMOUSE.md). O catálogo upstream contém 96 entradas na biblioteca principal e 3 na de teclados; isso não é uma contagem de modelos fisicamente testados. Modos de demonstração foram desativados e suas implementações de fixtures removidas do pacote executável.
+
+## Histórico anterior
 
 Windows x64, 27/10/2026.
 

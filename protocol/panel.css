@@ -1,0 +1,13 @@
+:root,[data-interface-theme="mono"]{--font-sans:"Segoe UI",system-ui,sans-serif;--ink-0:#090909;--ink-1:#0d0d0d;--solid-1:#171717;--solid-2:#222;--tint-rgb:220 220 220;--text-1:#ededed;--text-2:#aaa;--text-3:#828282;--text-4:#5c5c5c;--accent:#dedede;--accent-rgb:222 222 222;--on-accent:#111;--ok:#c6c6c6;--page-top:16px;--rail-w:220px;--rail-w-medium:185px;--sidebar-w:0px}
+html,body,#control-app{margin:0;min-height:100%;background:#0d0d0d;color:var(--text-1);font:13px var(--font-sans)}
+.central-protocol-shell{max-width:1400px;margin:auto;padding:8px 0 70px}
+.central-protocol-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px;color:var(--text-3);font-size:11px}
+.central-protocol-credit{margin:28px 0 0;font-size:10px;color:var(--text-3)}
+.central-protocol-credit a{color:var(--text-2)}
+.central-protocol-shell .full-desktop-content{padding:0;overflow:visible}
+.central-protocol-shell .apply-bar{position:fixed;inset-inline:12px;bottom:12px;max-width:calc(100% - 24px)}
+.central-protocol-shell .om-device-artreq{display:none}
+.central-protocol-shell .page-overview{max-width:100%}
+.central-protocol-shell .om-device-rail .om-device-art{aspect-ratio:1/1.35}
+.central-protocol-shell .om-device-rail{top:12px}
+.central-protocol-shell .page{padding:0}

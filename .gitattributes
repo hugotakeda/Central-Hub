@@ -1,0 +1,3 @@
+# Preserve upstream license texts and vendored source without whitespace edits.
+public/licenses/* -whitespace
+vendor/openmouse/** -whitespace
