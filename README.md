@@ -4,7 +4,7 @@ Central Hub is a lightweight Windows app for managing mice, keyboards, and heads
 
 ## Download
 
-**Windows x64:** [Download the installer](https://github.com/hugotakeda/Central-Hub/releases/latest/download/Central-Hub-0.0.1-Setup.exe) or [download the standalone executable](https://github.com/hugotakeda/Central-Hub/releases/latest/download/CentralHub.exe).
+**Windows x64:** [Download the installer](https://github.com/hugotakeda/Central-Hub/releases/download/v0.0.1/CentralHub.exe) or [download the standalone executable](https://github.com/hugotakeda/Central-Hub/releases/latest/download/CentralHub.exe).
 
 See [releases](https://github.com/hugotakeda/Central-Hub/releases) for source downloads, checksums, changes, and compatibility notes. The standalone app requires Microsoft Edge WebView2 Runtime. Close any older Central Hub instance before opening this version. The current interface is in Brazilian Portuguese.
 
