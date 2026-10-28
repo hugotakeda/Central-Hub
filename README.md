@@ -1,4 +1,4 @@
-# Central Hub 0.9.1
+# Central Hub 0.0.1
 
 Central Hub is a lightweight Windows app for managing mice, keyboards, and headsets. Discover devices, view real hardware data and product photos, run diagnostics, and configure supported peripherals through a minimal black-and-graphite interface.
 
