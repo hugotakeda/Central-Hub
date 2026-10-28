@@ -6,6 +6,7 @@ import { customPhoto, photoHidden, photoModelName } from '../domain/localData';
 import { productPhoto } from '../domain/productPhotos';
 import { illustration } from '../domain/hardwareGroups';
 import { resolvePhoto, usePhotoStore, openPhotoSource } from '../services/photoSearch';
+import { useDevicePreferences } from '../domain/devicePreferences';
 
 export default function ProtocolDevice({group}:{group:HardwareGroup}) {
   const [ready,setReady]=useState(false),[error,setError]=useState('');
@@ -17,6 +18,7 @@ export default function ProtocolDevice({group}:{group:HardwareGroup}) {
     void protocolExclusive(async()=>{
       if(disposed)return;
       await acquireProtocolPanel(group.id,useGearStore.getState().deviceTab,art,value=>setReading(group.id,value),()=>navigate('home'));
+      if(window.__CENTRAL_HUB_PANEL__){window.__CENTRAL_HUB_PANEL__.showBattery=useDevicePreferences.getState().showBattery;window.__CENTRAL_HUB_PANEL__.deviceName=group.name;}
       if(!disposed)setReady(true);
       if(!art&&!photoHidden(group.id))void (async()=>{
         await usePhotoStore.getState().initialize();if(!usePhotoStore.getState().enabled)return;

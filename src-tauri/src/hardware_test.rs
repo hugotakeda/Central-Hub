@@ -20,6 +20,7 @@ pub struct Report {
     pub snapshot: Option<crate::controls::SettingsSnapshot>,
     pub discovery_errors: Vec<String>,
     pub system: Vec<crate::pnp::SystemDevice>,
+    pub batteries: Vec<crate::battery::BatteryReading>,
 }
 fn check(name: &str, status: &str, detail: String, elapsed_ms: u128) -> Check {
     Check {
@@ -48,6 +49,11 @@ pub fn execute(device_id: &str, audio_ids: &[String]) -> Result<Report, String> 
         .as_millis();
     let start = Instant::now();
     let discovery = crate::discovery::enumerate();
+    let batteries: Vec<_> = discovery
+        .batteries
+        .into_iter()
+        .filter(|b| b.physical_id == device_id)
+        .collect();
     let hid: Vec<_> = discovery
         .devices
         .into_iter()
@@ -79,6 +85,31 @@ pub fn execute(device_id: &str, audio_ids: &[String]) -> Result<Report, String> 
         },
         start.elapsed().as_millis(),
     )];
+    for battery in &batteries {
+        checks.push(check(
+            "Bateria",
+            if battery.error.is_none() {
+                "pass"
+            } else {
+                "unavailable"
+            },
+            battery.error.clone().unwrap_or_else(|| {
+                format!(
+                    "{} · porcentagem: {} · tensão: {} mV. Somente leitura.",
+                    battery.source,
+                    battery
+                        .percent
+                        .map(|p| format!("{p}%"))
+                        .unwrap_or_else(|| "não informada".into()),
+                    battery
+                        .voltage_mv
+                        .map(|v| v.to_string())
+                        .unwrap_or_else(|| "não informada".into())
+                )
+            }),
+            0,
+        ));
+    }
     if !system.is_empty() {
         checks.push(check(
             "Presença Plug and Play",
@@ -174,6 +205,7 @@ pub fn execute(device_id: &str, audio_ids: &[String]) -> Result<Report, String> 
         hid,
         audio,
         system,
+        batteries,
         snapshot,
         discovery_errors: discovery.errors,
     })

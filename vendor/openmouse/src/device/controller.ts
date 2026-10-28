@@ -7115,7 +7115,7 @@ export async function refreshStatus(): Promise<void> {
 let previewShelfKeys: readonly FixturePreviewMode[] = [];
 async function loadPreviewEntries(): Promise<void> {}
 
-export function start(): void {
+export function start(): Promise<void> {
   // Native transport: do not patch prototypes or retain an input capture in the background.
   onPendingChanges(() => {
     if (!isPendingChange(BUNNY_HOP_KEY)) stagedBunnyHopMs = null;
@@ -7145,10 +7145,11 @@ export function start(): void {
     emit();
   });
 
+  let initialization=Promise.resolve();
   if (!isAnyPreview) {
     navigator.hid?.addEventListener("connect", handleHidConnect);
     navigator.hid?.addEventListener("disconnect", handleHidDisconnect);
-    void reconnectAuthorizedDevice();
+    initialization=reconnectAuthorizedDevice();
   }
 
   window.addEventListener("beforeunload", (event) => {
@@ -7158,6 +7159,7 @@ export function start(): void {
     navigator.hid?.removeEventListener("disconnect", handleHidDisconnect);
     void active?.close();
   });
+  return initialization;
 }
 
 /** Central Hub owns the session lifetime. */

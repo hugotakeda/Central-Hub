@@ -13,6 +13,6 @@ export default defineConfig({
   clearScreen: false,
   server: { watch: { ignored: ['**/src-tauri/**'] } },
   envPrefix: ['VITE_', 'TAURI_ENV_*'],
-  define: { __APP_VERSION__: JSON.stringify('0.0.3'), __BUILD_CHANNEL__: JSON.stringify('stable'), __BUILD_ID__: JSON.stringify('Central Hub') },
+  define: { __APP_VERSION__: JSON.stringify('0.0.4'), __BUILD_CHANNEL__: JSON.stringify('stable'), __BUILD_ID__: JSON.stringify('Central Hub') },
   build: { target: 'es2022', sourcemap: false, reportCompressedSize: true, rollupOptions: { input: { main:fileURLToPath(new URL('./index.html',import.meta.url)), protocol:fileURLToPath(new URL('./protocol/index.html',import.meta.url)) } } },
 });

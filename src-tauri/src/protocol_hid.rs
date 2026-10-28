@@ -170,7 +170,7 @@ pub fn collections(descriptor: &[u8]) -> Result<Vec<Collection>, String> {
     }
     Ok(roots)
 }
-fn report_len(collections: &[Collection], operation: &str, id: u8) -> Option<usize> {
+pub(crate) fn report_len(collections: &[Collection], operation: &str, id: u8) -> Option<usize> {
     fn bits(cs: &[Collection], op: &str, id: u8) -> u64 {
         cs.iter()
             .map(|c| {

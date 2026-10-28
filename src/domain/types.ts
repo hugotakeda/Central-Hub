@@ -11,8 +11,9 @@ export interface HidDevice {
   physical_id?: string; identity?: ModelIdentity | null; probe_error?: string | null;
   driver_version?: string | null; virtual_device?: boolean; identity_cached?: boolean;
 }
-export interface AudioEndpoint { id: string; name: string; direction: 'input' | 'output'; volume: number | null; muted: boolean | null; physical_id?: string | null }
-export interface HidScan { devices: HidDevice[]; audio: AudioEndpoint[]; system?: SystemDevice[]; protocols?: import('../services/protocolTypes').ProtocolDevice[]; error: string | null; available: boolean }
+export interface AudioEndpoint { id: string; name: string; direction: 'input' | 'output'; volume: number | null; muted: boolean | null; physical_id?: string | null; form_factor?: string | null }
+export interface BatteryReading { physical_id:string; source:string; percent:number|null; voltage_mv:number|null; charging:boolean|null; observed_at_ms:number; error:string|null; device_name?:string|null }
+export interface HidScan { devices: HidDevice[]; audio: AudioEndpoint[]; batteries?:BatteryReading[]; via?:import('../services/ownVia').ViaReading[]; system?: SystemDevice[]; protocols?: import('../services/protocolTypes').ProtocolDevice[]; error: string | null; available: boolean }
 export interface SystemDevice { id: string; physical_id: string; name: string; manufacturer: string | null; kind: 'mouse' | 'keyboard'; vendor_id: number | null; product_id: number | null; driver_version: string | null; virtual_device: boolean }
 export interface MouseSettings {
   kind: 'mouse'; dpi: number; dpi_options: number[]; polling_hz: number | null; polling_options: number[]; mode: number | null; battery_percent: number | null;
@@ -21,6 +22,7 @@ export interface KeyboardSettings { kind: 'keyboard'; effect: number; effect_opt
 export interface DeviceSettingsSnapshot { device_id: string; revision: string; settings: MouseSettings | KeyboardSettings }
 export interface DeviceReading { snapshot: DeviceSettingsSnapshot; at: number }
 export interface HardwareTestReport {
+  batteries?:BatteryReading[]; via?:import('../services/ownVia').ViaReading;
   protocol?: import('../services/protocolTypes').ProtocolDevice;
   app_version: string; device_id: string; started_at_ms: number; elapsed_ms: number;
   checks: { name: string; status: 'pass' | 'fail' | 'unavailable'; detail: string; elapsed_ms: number }[];

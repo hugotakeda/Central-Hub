@@ -19,3 +19,7 @@ As licenças dos pacotes JavaScript usados em produção são incluídas em `pub
 O código adaptado está em `vendor/openmouse/src`. Suas alterações estão descritas em [vendor/openmouse/ORIGEM.md](vendor/openmouse/ORIGEM.md). Os protocolos próprios do F75, o transporte nativo, a descoberta Windows e a interface principal são mantidos pelo Central Hub.
 
 Fotos e marcas de produtos pertencem aos respectivos titulares e não recebem automaticamente a licença do código. Consulte [Fontes das imagens](public/products/SOURCES.md). Fotografias obtidas pela busca online exibem a origem e permanecem sujeitas aos direitos da fonte.
+
+## Referências técnicas das integrações próprias
+
+O cliente VIA do Central Hub foi implementado a partir da especificação e dos comandos documentados pelo [QMK](https://github.com/qmk/qmk_firmware/tree/master/quantum) e dos identificadores, matrizes e posições publicados no [catálogo VIA](https://github.com/the-via/keyboards). Os provedores de bateria usam os formatos descritos pelo [HeadsetControl](https://github.com/Sapd/HeadsetControl), HID Usage Tables do USB-IF e APIs Windows. Nenhum executável desses projetos é distribuído. As fontes por família e os limites de validação estão em [docs/PROTOCOLOS-NATIVOS.md](docs/PROTOCOLOS-NATIVOS.md). As implementações do Central Hub são distribuídas sob a licença AGPL-3.0-or-later do projeto.

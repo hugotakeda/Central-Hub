@@ -11,6 +11,8 @@ export interface PanelSnapshot {
   pending: number; busy: boolean; error?: string;
 }
 export interface ProtocolPanelHost {
+  deviceName?:string;
+  showBattery?:boolean;
   hid: HID; initialTab: 'overview'|'performance'; artwork: string | null;
   artworkSource?: string | null; openArtworkSource?():void;
   capture(snapshot: PanelSnapshot): void; leave(): void;

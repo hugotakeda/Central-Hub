@@ -22,3 +22,7 @@ Licença: **AGPL-3.0-or-later**. O texto original e os avisos de autoria estão 
 `scripts/adapt-openmouse.mjs` registra as transformações iniciais; ajustes posteriores estão nos arquivos e no histórico do Central Hub. Não execute esse script novamente sobre os arquivos já adaptados.
 
 O suporte do catálogo upstream não equivale a uma validação física local de cada modelo. A configuração do Aula F75 e o áudio Windows continuam implementados no próprio Central Hub.
+
+Na versão 0.0.4, a exibição de bateria em DeviceHero, DeviceStats e OverviewPage passou a respeitar a preferência do Central Hub, por meio de shared/power-visibility.ts. Ajustes locais de CSS do painel corrigem rolagem, notificações e o espaço da barra de aplicação.
+
+O início do controller passa a retornar a Promise da reconexão inicial. O host Central Hub usa esse resultado para mostrar carregamento/recuperação do aparelho selecionado e renderiza diretamente a área de configuração, sem a lista de autorização WebHID interna. A página original do upstream permanece no código de origem, mas não integra esse fluxo do aplicativo.

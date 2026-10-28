@@ -5,6 +5,7 @@ import * as control from "../../device/controller";
 import { connectionText, t } from "../../i18n/index";
 import type { InterfaceLocale } from "../settings/interface-preferences";
 import { BatteryIcon } from "../../shared/ui";
+import { showBattery } from '../../shared/power-visibility';
 
 export function ConnectionIcon({ type, transport }: { type: string | null | undefined; transport?: "bridge" | "webhid" }): ReactNode {
   const value = (type ?? "").toLowerCase();
@@ -35,7 +36,7 @@ export function DeviceStats({
           <span>{connectionText(locale, status.connectionType)}</span>
         </span>
       ) : null}
-      {status.batteryPercent !== null ? (
+      {showBattery() && status.batteryPercent !== null ? (
         <span className="om-stat" title={estimate ? `${estimate.time} ${estimate.label}` : undefined}>
           <BatteryIcon percent={status.batteryPercent} state={status.batteryState} />
           <b>{status.batteryPercent}%</b>

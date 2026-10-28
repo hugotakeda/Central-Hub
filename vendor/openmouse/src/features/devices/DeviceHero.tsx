@@ -6,6 +6,7 @@ import { cachedBatterySamples, type BatterySample } from "./battery-history";
 import type { ControlSnapshot, WorkspaceTab } from "../../device/types";
 import { deviceImage, isUnknownDevice } from "../../shared/device-images";
 import { ConnectionIcon } from "./DeviceStats";
+import { showBattery } from '../../shared/power-visibility';
 
 const ARTWORK_DISCUSSION_URL =
   "https://github.com/OpenMouse-Project/openmouse/discussions/new?category=artwork-request";
@@ -148,7 +149,7 @@ export function CurrentSetupPanel({ snapshot }: { snapshot: ControlSnapshot }): 
       sub: maxRate && maxRate > status.pollingRateHz ? tp(locale, "ov.upTo", { v: `${maxRate.toLocaleString()} Hz` }) : undefined,
     });
   }
-  if (status.batteryPercent !== null) {
+  if (showBattery() && status.batteryPercent !== null) {
     figures.push({
       key: "battery",
       label: t(locale, "ov.batteryLabel"),
@@ -219,7 +220,7 @@ export function BatteryHistoryPanel({ snapshot }: { snapshot: ControlSnapshot })
       return [];
     }
   }, [status?.name, status?.batteryPercent]);
-  if (!status || status.batteryPercent === null) return null;
+  if (!showBattery() || !status || status.batteryPercent === null) return null;
   const width = 600;
   const height = 120;
   const path = sparkPath(samples, width, height);

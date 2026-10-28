@@ -88,3 +88,18 @@ Novos testes cobrem deduplicação, expiração de falhas, preferência salva, r
 Validação de rede real: fotos de G502 HERO, G305 LIGHTSPEED e Razer DeathAdder V3 obtidas nas páginas oficiais, normalizadas e mantidas em cache. Repetição G502 confirmou cache=true. Bloqueios/ausência de correspondência foram mantidos como indisponibilidade, sem inventar imagem ou contornar validação de acesso. O hardware descoberto não recebeu registros de teste.
 
 Revisão na janela nativa 0.9.0: busca manual de Logitech G502 HERO exibiu a miniatura oficial na prévia. Cancelar prévia removeu o resultado sem aplicar a foto ao receptor usado para abrir o editor. O nome e os recursos reais desse receptor permaneceram inalterados. A consulta foi somente de imagem, sem simular presença do G502.
+
+## Versão pública 0.0.4 — interface, catálogo e protocolos próprios
+
+- 62 testes de frontend e 43 testes unitários nativos aprovados; 1 teste opcional de leitura física e 4 testes de escrita física não executados na suíte comum.
+- TypeScript das duas interfaces e compilação Tauri/NSIS concluídos.
+- Catálogo com 225 IDs únicos, 75 produtos por categoria. Testes validam correspondência exata, separação de variantes e ausência de capacidades/bateria fictícias.
+- VIA próprio: testes de enquadramento, versão/camadas, mapa, posição válida, edição desatualizada e confirmação da gravação por leitura. Nenhum dos teclados VIA adicionais foi conectado fisicamente nesta validação.
+- Provedores de bateria: testes de eco, limites, nível zero, tensão sem porcentagem e descritor Battery Strength. Cloud Flight 0951:1723 consultado fisicamente, com resposta de 3814 mV; consultas posteriores variaram dentro da faixa esperada. Nenhum ajuste foi alterado.
+- Correção HyperX: três regressões confirmam que o Flight não entra no cliente Pulsefire Haste, que um registro antigo com erro não muda o painel de headset e que uma coleção vendor vazia/numerada 21 não é aceita como canal de mouse de 64 bytes.
+- A janela compilada apresentou maximização desativada, sidebar ampliada, catálogo pesquisável e o formulário de P2 com endpoints reais. Foi observada a rolagem até o rodapé e o aviso de validação no topo, sem bloquear o último cartão.
+- Superlight voltou a mostrar seu painel real com 800 DPI, 1000 Hz e 52% durante a revisão, sem aplicação de ajustes. O F75 apareceu por USB e o Flight continuou agrupado como headset.
+
+Os dados de bateria do driver Windows são identificados como seu último valor. Fones P2 são associações manuais a saídas reais; não há identificação eletrônica de marca/modelo pelo plugue. Não foi declarada validação física de todos os modelos do catálogo.
+
+Revisão visual do executável final 0.0.4: a página Adicionar fone P2 apareceu na sidebar, com busca por “KZ ZS10” retornando o modelo correspondente, filtros de marca e resumo separado. Nenhuma associação foi salva durante a revisão. A configuração do Superlight apresentou o carregamento com nome e foto do aparelho e abriu diretamente os ajustes reais de 800 DPI e 1000 Hz, sem a lista interna de receptores/navegador. O Cloud Flight abriu o painel nativo com volume, microfone e leitura de 3806 mV, sem o erro do cliente de mouse HyperX. Nenhum ajuste de hardware foi aplicado nesta revisão.

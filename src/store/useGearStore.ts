@@ -5,7 +5,7 @@ import { hardwareGroups, supportsSettings } from '../domain/hardwareGroups';
 import * as bridge from '../services/bridge';
 import { protocolPanelActive, protocolPanelBusy, refreshProtocolPanel } from '../services/protocols';
 import type { PanelSnapshot } from '../services/protocolTypes';
-export type Page = 'home' | 'device' | 'hardware' | 'settings' | 'test';
+export type Page = 'home' | 'device' | 'hardware' | 'settings' | 'test' | 'catalog' | 'audio-setup';
 interface GearState {
   page: Page; selectedId: string; deviceTab: 'overview' | 'performance'; ready: boolean;
   notice: { message: string; error: boolean } | null; scan: HidScan | null; scanning: boolean;

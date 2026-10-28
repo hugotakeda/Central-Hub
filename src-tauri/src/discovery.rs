@@ -6,6 +6,7 @@ pub struct Discovery {
     pub devices: Vec<hid::HidDevice>,
     pub audio: Vec<audio::AudioEndpoint>,
     pub system: Vec<crate::pnp::SystemDevice>,
+    pub batteries: Vec<crate::battery::BatteryReading>,
     pub errors: Vec<String>,
 }
 
@@ -27,6 +28,7 @@ pub fn enumerate() -> Discovery {
         devices,
         audio,
         system,
+        batteries: crate::battery::enumerate(),
         errors,
     }
 }

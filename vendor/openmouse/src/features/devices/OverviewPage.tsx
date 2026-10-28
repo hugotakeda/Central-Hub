@@ -65,6 +65,7 @@ import { cardAvailability } from "./cards/availability";
 import { TeevolutionProfileCard } from "./cards/teevolution/ProfileCard";
 import { deviceImage } from "../../shared/device-images";
 import { BatteryIcon } from "../../shared/ui";
+import { showBattery } from '../../shared/power-visibility';
 import { BatteryHistoryPanel, CurrentSetupPanel, DeviceHero } from "./DeviceHero";
 import { DevicesHome } from "./DevicesHome";
 import { availableKeyboardWorkspaceTabs, availableWorkspaceTab, availableWorkspaceTabs } from "./workspace-tabs";
@@ -293,7 +294,7 @@ export function DeviceShowcaseSidebar({ snapshot }: { snapshot: ControlSnapshot 
             {displayText(locale, " · ")}{displayText(locale, connectionText(locale, status.connectionType))}
           </span>
         ) : null}
-        {status.batteryPercent !== null ? (
+        {showBattery() && status.batteryPercent !== null ? (
           <span className="device-showcase-status-detail">
             {displayText(locale, " · ")}
             <BatteryIcon percent={status.batteryPercent} state={status.batteryState} />
@@ -320,7 +321,7 @@ function OverviewContent({ snapshot }: {
     <>
       <M2NexProfileOverview snapshot={snapshot} />
       <CurrentSetupPanel snapshot={snapshot} />
-      <div className={`om-overview-grid${status.batteryPercent === null ? " is-single" : ""}`}>
+      <div className={`om-overview-grid${!showBattery() || status.batteryPercent === null ? " is-single" : ""}`}>
         <BatteryHistoryPanel snapshot={snapshot} />
         <section id="firmware-update-settings" className="device-data" aria-label={displayText(__uiLocale, "Firmware update")}>
           <FirmwareCard snapshot={snapshot} />

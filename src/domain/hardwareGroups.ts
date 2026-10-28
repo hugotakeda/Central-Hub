@@ -1,10 +1,16 @@
 import type { AudioEndpoint, DeviceVisual, DeviceKind, HidDevice, HidScan, ProductModel, SystemDevice } from './types';
+import { catalogProduct, peripheralCatalog, type CatalogProduct } from './peripheralCatalog';
+import { useDevicePreferences, type AudioBinding } from './devicePreferences';
 export interface HardwareGroup {
   id: string; model?: ProductModel; name: string; kind: DeviceKind; hid: HidDevice[]; audio: AudioEndpoint[];
-  identity: 'protocol' | 'model-name' | 'interface-group';
+  identity: 'protocol' | 'model-name' | 'interface-group' | 'user';
   virtual?: boolean;
   system?: SystemDevice[];
   protocol?: import('../services/protocolTypes').ProtocolDevice;
+  catalog?:CatalogProduct;
+  manualAudio?:AudioBinding;
+  via?:import('../services/ownVia').ViaReading;
+  battery?:import('./types').BatteryReading;
 }
 const models: { model: ProductModel; name: string; kind: DeviceKind; pattern: RegExp }[] = [
   { model: 'superlight', name: 'G Pro X Superlight', kind: 'mouse', pattern: /\bsuperlight\b(?!\s*(?:2|3|dex)\b)/i },
@@ -12,7 +18,7 @@ const models: { model: ProductModel; name: string; kind: DeviceKind; pattern: Re
   { model: 'cloud-flight', name: 'Cloud Flight', kind: 'headset', pattern: /\bcloud\s*flight\b(?!\s*(?:s|2|s2)\b)/i },
   { model: 'g-pro-tkl', name: 'G Pro TKL', kind: 'keyboard', pattern: /\b(?:g\s+)?pro\s+(?:gaming\s+)?keyboard\b/i },
 ];
-export function hardwareGroups(scan: HidScan | null): HardwareGroup[] {
+export function hardwareGroups(scan: HidScan | null, bindings:AudioBinding[]=useDevicePreferences.getState().audioBindings): HardwareGroup[] {
   if (!scan?.available) return [];
   const collections = new Map<string, HidDevice[]>();
   for (const device of scan.devices) {
@@ -58,10 +64,12 @@ export function hardwareGroups(scan: HidScan | null): HardwareGroup[] {
     }
     group.audio.push(endpoint);
     if (!group.model && group.kind === 'unknown') { group.kind = 'audio'; group.name = endpoint.name; }
+    if(['audio','unknown'].includes(group.kind)&&['headphones','headset'].includes(endpoint.form_factor??''))group.kind='headset';
   }
   for (const protocol of scan.protocols ?? []) {
     const group = groups.find(g => g.id === protocol.physicalId || g.hid.some(d => d.id === protocol.interfaceId));
-    if (!group || group.virtual) continue;
+    if (!group || group.virtual || ['headset','audio'].includes(group.kind)
+      || scan.batteries?.some(b=>b.physical_id===group.id&&b.device_name&&!b.error)) continue;
     group.protocol = protocol;
     if (protocol.confirmed || protocol.catalogOnly) {
       group.name = group.model ? group.name : protocol.name;
@@ -69,7 +77,28 @@ export function hardwareGroups(scan: HidScan | null): HardwareGroup[] {
       group.identity = protocol.catalogOnly ? 'model-name' : 'protocol';
     }
   }
-  return groups.sort((a, b) => {
+  for(const group of groups){
+    const via=scan.via?.find(v=>v.physicalId===group.id);
+    if(via){group.via=via;group.name=via.definition.name;group.kind='keyboard';group.identity=via.error?'model-name':'protocol';}
+    const names=[{name:group.name,brand:group.protocol?.brand??group.hid.find(d=>d.manufacturer)?.manufacturer??''},...group.hid.map(d=>({name:d.product_string??'',brand:d.manufacturer??''}))];
+    group.catalog=names.map(n=>catalogProduct(n.name,n.brand,group.kind)).find(Boolean);
+    if(group.catalog&&!group.model&&!group.protocol&&!group.via){group.name=group.catalog.name;group.kind=group.catalog.kind;group.identity='model-name';}
+    group.battery=scan.batteries?.filter(b=>b.physical_id===group.id||group.audio.some(e=>e.physical_id===b.physical_id)).sort((a,b)=>Number(!!a.error)-Number(!!b.error)||Number(b.percent!==null)-Number(a.percent!==null))[0];
+    if(group.battery?.device_name&&!group.battery.error&&['unknown','audio','headset'].includes(group.kind)&&!group.manualAudio){
+      group.kind='headset';if(!group.model&&!group.protocol)group.name=group.battery.device_name;group.identity='protocol';
+      group.catalog??=catalogProduct(group.name,'','headset');
+    }
+  }
+  for(const binding of bindings){
+    const output=scan.audio.find(e=>e.id===binding.outputId&&e.direction==='output');
+    if(!output)continue;
+    const endpoints=[output,...scan.audio.filter(e=>e.id===binding.inputId&&e.direction==='input')];
+    for(const group of groups)group.audio=group.audio.filter(e=>!endpoints.some(p=>p.id===e.id));
+    groups.push({id:`audio-p2:${output.id}`,name:binding.name,kind:'headset',identity:'user',hid:[],audio:endpoints,manualAudio:binding,catalog:peripheralCatalog.find(p=>p.id===binding.catalogId)});
+  }
+  // A manually associated endpoint replaces its original audio-only card.
+  const remaining=groups.filter(g=>g.hid.length||g.system?.length||g.audio.length);
+  return remaining.sort((a, b) => {
     const rank = (g: HardwareGroup) => { const i = models.findIndex(m => m.model === g.model); return i < 0 ? models.length : i; };
     return rank(a) - rank(b) || a.name.localeCompare(b.name, 'pt-BR') || a.id.localeCompare(b.id);
   });
@@ -86,6 +115,8 @@ export function illustration(group: HardwareGroup): DeviceVisual {
   return { id: group.model ?? group.id, kind: group.kind, physicalId: group.id, virtual: group.virtual, photoQuery: { name: group.name, manufacturer: manufacturer(group), kind: group.kind } };
 }
 export function connectionLabel(group: HardwareGroup): string {
+  if(group.manualAudio)return 'Áudio Windows · modelo escolhido por você';
+  if(group.via)return group.via.error?'USB · VIA sem resposta':'USB · VIA identificado';
   if(group.protocol?.catalogOnly)return 'Detectado · modelo do catálogo';
   if (group.protocol?.confirmed) return group.protocol.mouse?.connectionType === 'Wireless' || group.protocol.keyboard?.connectionType === 'Wireless' ? 'Sem fio · identificado' : group.protocol.mouse?.connectionType === 'Wired' || group.protocol.keyboard?.connectionType === 'Wired' ? 'USB · identificado' : 'Protocolo identificado';
   if (isWirelessF75(group)) return group.hid.some(d=>d.identity_cached) ? '2,4 GHz · receptor presente' : '2,4 GHz · identificado';
@@ -99,5 +130,5 @@ export const hex = (n: number) => n.toString(16).toUpperCase().padStart(4, '0');
 export const kindLabel = (kind: DeviceKind) => ({ mouse: 'Mouse', keyboard: 'Teclado', headset: 'Headset', controller: 'Controle', audio: 'Áudio', unknown: 'Dispositivo' })[kind];
 export const isWirelessF75 = (g: HardwareGroup) => g.model === 'f75' && g.hid.some(d=>d.vendor_id===0x3554 && d.product_id===0xfa09);
 export const supportsSettings = (g: HardwareGroup) => !g.protocol && g.identity === 'protocol' && (g.model === 'superlight' || g.model === 'f75');
-export const canConfigure = (g: HardwareGroup) => !!g.protocol || g.audio.length > 0 || supportsSettings(g);
-export const manufacturer = (g: HardwareGroup) => g.protocol?.confirmed ? g.protocol.brand : g.model === 'g-pro-tkl' || g.model === 'superlight' ? 'Logitech' : g.model === 'f75' ? 'Aula' : g.model === 'cloud-flight' ? 'HyperX' : g.hid.find(d => d.manufacturer)?.manufacturer ?? 'Windows';
+export const canConfigure = (g: HardwareGroup) => !!g.via || !!g.protocol || g.audio.length > 0 || supportsSettings(g);
+export const manufacturer = (g: HardwareGroup) => g.manualAudio?.brand || (g.via?g.via.definition.name.startsWith('Keychron')?'Keychron':'MonsGeek':null) || (g.protocol?.confirmed ? g.protocol.brand : g.model === 'g-pro-tkl' || g.model === 'superlight' ? 'Logitech' : g.model === 'f75' ? 'Aula' : g.model === 'cloud-flight' ? 'HyperX' : g.catalog?.brand ?? g.hid.find(d => d.manufacturer)?.manufacturer ?? 'Windows');

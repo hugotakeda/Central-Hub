@@ -1,0 +1,1390 @@
+[
+  {
+    "id": "mouse-logitech-g-pro-x-superlight-lightspeed",
+    "name": "Logitech G PRO X Superlight Lightspeed",
+    "brand": "Logitech",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-logitech-g-pro-v2",
+    "name": "Logitech G PRO v2",
+    "brand": "Logitech",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-logitech-g203-lightsync",
+    "name": "Logitech G203 Lightsync",
+    "brand": "Logitech",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-logitech-g403-hero",
+    "name": "Logitech G403 Hero",
+    "brand": "Logitech",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-logitech-g502-hero",
+    "name": "Logitech G502 Hero",
+    "brand": "Logitech",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-logitech-g305-lightspeed",
+    "name": "Logitech G305 Lightspeed",
+    "brand": "Logitech",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-logitech-g703-lightspeed",
+    "name": "Logitech G703 Lightspeed",
+    "brand": "Logitech",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-logitech-g903-lightspeed",
+    "name": "Logitech G903 Lightspeed",
+    "brand": "Logitech",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-logitech-g402-hyperion-fury",
+    "name": "Logitech G402 Hyperion Fury",
+    "brand": "Logitech",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-logitech-g304",
+    "name": "Logitech G304",
+    "brand": "Logitech",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-razer-deathadder-v3-pro",
+    "name": "Razer DeathAdder V3 Pro",
+    "brand": "Razer",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-razer-deathadder-v2",
+    "name": "Razer DeathAdder V2",
+    "brand": "Razer",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-razer-viper-mini",
+    "name": "Razer Viper Mini",
+    "brand": "Razer",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-razer-viper-v2-pro",
+    "name": "Razer Viper V2 Pro",
+    "brand": "Razer",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-razer-basilisk-v3",
+    "name": "Razer Basilisk V3",
+    "brand": "Razer",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-razer-basilisk-ultimate",
+    "name": "Razer Basilisk Ultimate",
+    "brand": "Razer",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-razer-naga-pro",
+    "name": "Razer Naga Pro",
+    "brand": "Razer",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-razer-cobra-pro",
+    "name": "Razer Cobra Pro",
+    "brand": "Razer",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-razer-orochi-v2",
+    "name": "Razer Orochi V2",
+    "brand": "Razer",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-razer-viper-ultimate",
+    "name": "Razer Viper Ultimate",
+    "brand": "Razer",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-redragon-cobra-m711",
+    "name": "Redragon Cobra M711",
+    "brand": "Redragon",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-redragon-griffin",
+    "name": "Redragon Griffin",
+    "brand": "Redragon",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-redragon-storm-pro",
+    "name": "Redragon Storm Pro",
+    "brand": "Redragon",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-redragon-king-pro",
+    "name": "Redragon King Pro",
+    "brand": "Redragon",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-redragon-invader",
+    "name": "Redragon Invader",
+    "brand": "Redragon",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-zowie-ec2-c",
+    "name": "Zowie EC2-C",
+    "brand": "Zowie",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-zowie-ec2-cw",
+    "name": "Zowie EC2-CW",
+    "brand": "Zowie",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-zowie-fk1-c",
+    "name": "Zowie FK1-C",
+    "brand": "Zowie",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-zowie-za13-c",
+    "name": "Zowie ZA13-C",
+    "brand": "Zowie",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-zowie-s2-c",
+    "name": "Zowie S2-C",
+    "brand": "Zowie",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-hyperx-pulsefire-haste",
+    "name": "HyperX Pulsefire Haste",
+    "brand": "HyperX",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-hyperx-pulsefire-surge",
+    "name": "HyperX Pulsefire Surge",
+    "brand": "HyperX",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-hyperx-pulsefire-core",
+    "name": "HyperX Pulsefire Core",
+    "brand": "HyperX",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-hyperx-pulsefire-dart",
+    "name": "HyperX Pulsefire Dart",
+    "brand": "HyperX",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-fallen-pantera-pro-wireless",
+    "name": "Fallen Pantera Pro Wireless",
+    "brand": "Fallen",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-fallen-lobo",
+    "name": "Fallen Lobo",
+    "brand": "Fallen",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-fallen-fenix",
+    "name": "Fallen Fenix",
+    "brand": "Fallen",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-steelseries-rival-3",
+    "name": "SteelSeries Rival 3",
+    "brand": "SteelSeries",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-steelseries-aerox-3-wireless",
+    "name": "SteelSeries Aerox 3 Wireless",
+    "brand": "SteelSeries",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-steelseries-aerox-5",
+    "name": "SteelSeries Aerox 5",
+    "brand": "SteelSeries",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-steelseries-prime-wireless",
+    "name": "SteelSeries Prime Wireless",
+    "brand": "SteelSeries",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-corsair-katar-pro-xt",
+    "name": "Corsair Katar Pro XT",
+    "brand": "Corsair",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-corsair-harpoon-rgb-wireless",
+    "name": "Corsair Harpoon RGB Wireless",
+    "brand": "Corsair",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-corsair-dark-core-rgb-pro",
+    "name": "Corsair Dark Core RGB Pro",
+    "brand": "Corsair",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-glorious-model-o",
+    "name": "Glorious Model O",
+    "brand": "Glorious",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-glorious-model-d",
+    "name": "Glorious Model D",
+    "brand": "Glorious",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-glorious-model-o-pro",
+    "name": "Glorious Model O Pro",
+    "brand": "Glorious",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-pulsar-x2-wireless",
+    "name": "Pulsar X2 Wireless",
+    "brand": "Pulsar",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-pulsar-xlite-v2",
+    "name": "Pulsar Xlite V2",
+    "brand": "Pulsar",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-pulsar-x2v2",
+    "name": "Pulsar X2V2",
+    "brand": "Pulsar",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-lamzu-atlantis",
+    "name": "Lamzu Atlantis",
+    "brand": "Lamzu",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-lamzu-thorn",
+    "name": "Lamzu Thorn",
+    "brand": "Lamzu",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-lamzu-maya",
+    "name": "Lamzu Maya",
+    "brand": "Lamzu",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-ninjutso-sora",
+    "name": "Ninjutso Sora",
+    "brand": "Ninjutso",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-ninjutso-katana",
+    "name": "Ninjutso Katana",
+    "brand": "Ninjutso",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-vgn-dragonfly-f1-pro-max",
+    "name": "VGN Dragonfly F1 Pro Max",
+    "brand": "VGN",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-vxe-dragonfly-r1-pro",
+    "name": "VXE Dragonfly R1 Pro",
+    "brand": "VXE",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-attack-shark-x3",
+    "name": "Attack Shark X3",
+    "brand": "Attack Shark",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-attack-shark-r6",
+    "name": "Attack Shark R6",
+    "brand": "Attack Shark",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-kysona-m600",
+    "name": "Kysona M600",
+    "brand": "Kysona",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-ajazz-aj199",
+    "name": "Ajazz AJ199",
+    "brand": "Ajazz",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-ajazz-aj139-pro",
+    "name": "Ajazz AJ139 Pro",
+    "brand": "Ajazz",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-darmoshark-m3",
+    "name": "Darmoshark M3",
+    "brand": "Darmoshark",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-darmoshark-n3",
+    "name": "Darmoshark N3",
+    "brand": "Darmoshark",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-zaopin-z1-pro",
+    "name": "Zaopin Z1 Pro",
+    "brand": "Zaopin",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-machenike-m310",
+    "name": "Machenike M310",
+    "brand": "Machenike",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-machenike-l8-pro",
+    "name": "Machenike L8 Pro",
+    "brand": "Machenike",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-delux-m800-pro",
+    "name": "Delux M800 Pro",
+    "brand": "Delux",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-delux-m800-ultra",
+    "name": "Delux M800 Ultra",
+    "brand": "Delux",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-fantech-aria-xd7",
+    "name": "Fantech Aria XD7",
+    "brand": "Fantech",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-g-wolves-hati-s",
+    "name": "G-Wolves Hati S",
+    "brand": "G-Wolves",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-g-wolves-skoll",
+    "name": "G-Wolves Skoll",
+    "brand": "G-Wolves",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-xtrfy-m4",
+    "name": "Xtrfy M4",
+    "brand": "Xtrfy",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-endgame-gear-xm1r",
+    "name": "Endgame Gear XM1r",
+    "brand": "Endgame Gear",
+    "kind": "mouse"
+  },
+  {
+    "id": "mouse-wlmouse-beast-x",
+    "name": "Wlmouse Beast X",
+    "brand": "Wlmouse",
+    "kind": "mouse"
+  },
+  {
+    "id": "keyboard-logitech-g-pro-tkl",
+    "name": "Logitech G PRO TKL",
+    "brand": "Logitech",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-logitech-g915-tkl",
+    "name": "Logitech G915 TKL",
+    "brand": "Logitech",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-logitech-g213-prodigy",
+    "name": "Logitech G213 Prodigy",
+    "brand": "Logitech",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-logitech-g815",
+    "name": "Logitech G815",
+    "brand": "Logitech",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-logitech-g413",
+    "name": "Logitech G413",
+    "brand": "Logitech",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-logitech-g613",
+    "name": "Logitech G613",
+    "brand": "Logitech",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-razer-huntsman-mini",
+    "name": "Razer Huntsman Mini",
+    "brand": "Razer",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-razer-huntsman-v2-tkl",
+    "name": "Razer Huntsman V2 TKL",
+    "brand": "Razer",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-razer-blackwidow-v3",
+    "name": "Razer BlackWidow V3",
+    "brand": "Razer",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-razer-ornata-v3",
+    "name": "Razer Ornata V3",
+    "brand": "Razer",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-razer-cynosa-v2",
+    "name": "Razer Cynosa V2",
+    "brand": "Razer",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-razer-deathstalker-v2-pro",
+    "name": "Razer DeathStalker V2 Pro",
+    "brand": "Razer",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-redragon-kumara-k552",
+    "name": "Redragon Kumara K552",
+    "brand": "Redragon",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-redragon-mitra-k551",
+    "name": "Redragon Mitra K551",
+    "brand": "Redragon",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-redragon-fizz-k617",
+    "name": "Redragon Fizz K617",
+    "brand": "Redragon",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-redragon-dark-avenger",
+    "name": "Redragon Dark Avenger",
+    "brand": "Redragon",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-redragon-lakshmi",
+    "name": "Redragon Lakshmi",
+    "brand": "Redragon",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-redragon-surya",
+    "name": "Redragon Surya",
+    "brand": "Redragon",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-redragon-brahma",
+    "name": "Redragon Brahma",
+    "brand": "Redragon",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-akko-5075b-plus",
+    "name": "Akko 5075B Plus",
+    "brand": "Akko",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-akko-3068b-plus",
+    "name": "Akko 3068B Plus",
+    "brand": "Akko",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-akko-5087s",
+    "name": "Akko 5087S",
+    "brand": "Akko",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-akko-acr-pro-75",
+    "name": "Akko ACR Pro 75",
+    "brand": "Akko",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-akko-mod007",
+    "name": "Akko MOD007",
+    "brand": "Akko",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-hyperx-alloy-origins",
+    "name": "HyperX Alloy Origins",
+    "brand": "HyperX",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-hyperx-alloy-origins-core",
+    "name": "HyperX Alloy Origins Core",
+    "brand": "HyperX",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-hyperx-alloy-fps-pro",
+    "name": "HyperX Alloy FPS Pro",
+    "brand": "HyperX",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-hyperx-alloy-origins-60",
+    "name": "HyperX Alloy Origins 60",
+    "brand": "HyperX",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-hyperx-alloy-elite-2",
+    "name": "HyperX Alloy Elite 2",
+    "brand": "HyperX",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-corsair-k60-rgb-pro",
+    "name": "Corsair K60 RGB Pro",
+    "brand": "Corsair",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-corsair-k70-rgb-tkl",
+    "name": "Corsair K70 RGB TKL",
+    "brand": "Corsair",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-corsair-k95-rgb-platinum",
+    "name": "Corsair K95 RGB Platinum",
+    "brand": "Corsair",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-corsair-k55-rgb-pro",
+    "name": "Corsair K55 RGB Pro",
+    "brand": "Corsair",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-steelseries-apex-pro-tkl",
+    "name": "SteelSeries Apex Pro TKL",
+    "brand": "SteelSeries",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-steelseries-apex-3",
+    "name": "SteelSeries Apex 3",
+    "brand": "SteelSeries",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-steelseries-apex-7",
+    "name": "SteelSeries Apex 7",
+    "brand": "SteelSeries",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-steelseries-apex-pro-mini",
+    "name": "SteelSeries Apex Pro Mini",
+    "brand": "SteelSeries",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-fallen-falcao",
+    "name": "Fallen Falcão",
+    "brand": "Fallen",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-fallen-pantera",
+    "name": "Fallen Pantera",
+    "brand": "Fallen",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-fallen-eco",
+    "name": "Fallen Eco",
+    "brand": "Fallen",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-husky-blizzard",
+    "name": "Husky Blizzard",
+    "brand": "Husky",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-husky-hailstorm",
+    "name": "Husky Hailstorm",
+    "brand": "Husky",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-husky-snow",
+    "name": "Husky Snow",
+    "brand": "Husky",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-keychron-k2",
+    "name": "Keychron K2",
+    "brand": "Keychron",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-keychron-v1",
+    "name": "Keychron V1",
+    "brand": "Keychron",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-keychron-q1",
+    "name": "Keychron Q1",
+    "brand": "Keychron",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-keychron-k6",
+    "name": "Keychron K6",
+    "brand": "Keychron",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-keychron-k8",
+    "name": "Keychron K8",
+    "brand": "Keychron",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-keychron-v2",
+    "name": "Keychron V2",
+    "brand": "Keychron",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-aula-hero68",
+    "name": "AULA Hero68",
+    "brand": "AULA",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-aula-hero68-xs",
+    "name": "AULA Hero68 XS",
+    "brand": "AULA",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-aula-f75",
+    "name": "AULA F75",
+    "brand": "AULA",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-aula-f87",
+    "name": "AULA F87",
+    "brand": "AULA",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-aula-f99",
+    "name": "AULA F99",
+    "brand": "AULA",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-epomaker-th80-pro",
+    "name": "Epomaker TH80 Pro",
+    "brand": "Epomaker",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-epomaker-rt100",
+    "name": "Epomaker RT100",
+    "brand": "Epomaker",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-ajazz-ak992",
+    "name": "Ajazz AK992",
+    "brand": "Ajazz",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-ajazz-ak820-pro",
+    "name": "Ajazz AK820 Pro",
+    "brand": "Ajazz",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-machenike-k500",
+    "name": "Machenike K500",
+    "brand": "Machenike",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-machenike-kt68",
+    "name": "Machenike KT68",
+    "brand": "Machenike",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-zuoya-gmk67",
+    "name": "Zuoya GMK67",
+    "brand": "Zuoya",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-rk-royal-kludge-rk61",
+    "name": "RK Royal Kludge RK61",
+    "brand": "RK Royal Kludge",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-rk-royal-kludge-rk84",
+    "name": "RK Royal Kludge RK84",
+    "brand": "RK Royal Kludge",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-rk-royal-kludge-m75",
+    "name": "RK Royal Kludge M75",
+    "brand": "RK Royal Kludge",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-womier-k61",
+    "name": "Womier K61",
+    "brand": "Womier",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-womier-s-k71",
+    "name": "Womier S-K71",
+    "brand": "Womier",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-xinmeng-m71",
+    "name": "Xinmeng M71",
+    "brand": "Xinmeng",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-xinmeng-a66",
+    "name": "Xinmeng A66",
+    "brand": "Xinmeng",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-yunzii-yz75",
+    "name": "YUNZII YZ75",
+    "brand": "YUNZII",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-yunzii-al71",
+    "name": "YUNZII AL71",
+    "brand": "YUNZII",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-monsgeek-m1",
+    "name": "MonsGeek M1",
+    "brand": "MonsGeek",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-skyloong-gk61",
+    "name": "Skyloong GK61",
+    "brand": "Skyloong",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-wooting-60he",
+    "name": "Wooting 60HE",
+    "brand": "Wooting",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-wooting-two-he",
+    "name": "Wooting Two HE",
+    "brand": "Wooting",
+    "kind": "keyboard"
+  },
+  {
+    "id": "keyboard-drunkdeer-a75",
+    "name": "DrunkDeer A75",
+    "brand": "DrunkDeer",
+    "kind": "keyboard"
+  },
+  {
+    "id": "headset-hyperx-cloud-flight-s",
+    "name": "HyperX Cloud Flight S",
+    "brand": "HyperX",
+    "kind": "headset"
+  },
+  {
+    "id": "headset-hyperx-cloud-ii",
+    "name": "HyperX Cloud II",
+    "brand": "HyperX",
+    "kind": "headset"
+  },
+  {
+    "id": "headset-hyperx-cloud-stinger-2",
+    "name": "HyperX Cloud Stinger 2",
+    "brand": "HyperX",
+    "kind": "headset"
+  },
+  {
+    "id": "headset-hyperx-cloud-alpha",
+    "name": "HyperX Cloud Alpha",
+    "brand": "HyperX",
+    "kind": "headset"
+  },
+  {
+    "id": "headset-hyperx-cloud-revolver",
+    "name": "HyperX Cloud Revolver",
+    "brand": "HyperX",
+    "kind": "headset"
+  },
+  {
+    "id": "headset-hyperx-cloud-core",
+    "name": "HyperX Cloud Core",
+    "brand": "HyperX",
+    "kind": "headset"
+  },
+  {
+    "id": "headset-hyperx-cloud-earbuds",
+    "name": "HyperX Cloud Earbuds",
+    "brand": "HyperX",
+    "kind": "headset",
+    "analog": true
+  },
+  {
+    "id": "headset-logitech-g733",
+    "name": "Logitech G733",
+    "brand": "Logitech",
+    "kind": "headset"
+  },
+  {
+    "id": "headset-logitech-g435",
+    "name": "Logitech G435",
+    "brand": "Logitech",
+    "kind": "headset"
+  },
+  {
+    "id": "headset-logitech-g-pro-x",
+    "name": "Logitech G Pro X",
+    "brand": "Logitech",
+    "kind": "headset"
+  },
+  {
+    "id": "headset-logitech-g332",
+    "name": "Logitech G332",
+    "brand": "Logitech",
+    "kind": "headset",
+    "analog": true
+  },
+  {
+    "id": "headset-logitech-g432",
+    "name": "Logitech G432",
+    "brand": "Logitech",
+    "kind": "headset"
+  },
+  {
+    "id": "headset-logitech-g935",
+    "name": "Logitech G935",
+    "brand": "Logitech",
+    "kind": "headset"
+  },
+  {
+    "id": "headset-razer-blackshark-v2-x",
+    "name": "Razer BlackShark V2 X",
+    "brand": "Razer",
+    "kind": "headset",
+    "analog": true
+  },
+  {
+    "id": "headset-razer-blackshark-v2-pro",
+    "name": "Razer BlackShark V2 Pro",
+    "brand": "Razer",
+    "kind": "headset"
+  },
+  {
+    "id": "headset-razer-kraken-v3",
+    "name": "Razer Kraken V3",
+    "brand": "Razer",
+    "kind": "headset"
+  },
+  {
+    "id": "headset-razer-kraken-x",
+    "name": "Razer Kraken X",
+    "brand": "Razer",
+    "kind": "headset",
+    "analog": true
+  },
+  {
+    "id": "headset-razer-barracuda-x",
+    "name": "Razer Barracuda X",
+    "brand": "Razer",
+    "kind": "headset"
+  },
+  {
+    "id": "headset-razer-hammerhead-true-wireless",
+    "name": "Razer Hammerhead True Wireless",
+    "brand": "Razer",
+    "kind": "headset"
+  },
+  {
+    "id": "headset-astro-a40-tr",
+    "name": "Astro A40 TR",
+    "brand": "Astro",
+    "kind": "headset",
+    "analog": true
+  },
+  {
+    "id": "headset-astro-a50",
+    "name": "Astro A50",
+    "brand": "Astro",
+    "kind": "headset"
+  },
+  {
+    "id": "headset-astro-a10",
+    "name": "Astro A10",
+    "brand": "Astro",
+    "kind": "headset",
+    "analog": true
+  },
+  {
+    "id": "headset-redragon-zeus-x",
+    "name": "Redragon Zeus X",
+    "brand": "Redragon",
+    "kind": "headset"
+  },
+  {
+    "id": "headset-redragon-lamia-2",
+    "name": "Redragon Lamia 2",
+    "brand": "Redragon",
+    "kind": "headset"
+  },
+  {
+    "id": "headset-redragon-scylla",
+    "name": "Redragon Scylla",
+    "brand": "Redragon",
+    "kind": "headset"
+  },
+  {
+    "id": "headset-redragon-hero",
+    "name": "Redragon Hero",
+    "brand": "Redragon",
+    "kind": "headset"
+  },
+  {
+    "id": "headset-redragon-minos",
+    "name": "Redragon Minos",
+    "brand": "Redragon",
+    "kind": "headset"
+  },
+  {
+    "id": "headset-redragon-pandora",
+    "name": "Redragon Pandora",
+    "brand": "Redragon",
+    "kind": "headset"
+  },
+  {
+    "id": "headset-havit-h2002d",
+    "name": "Havit H2002d",
+    "brand": "Havit",
+    "kind": "headset",
+    "analog": true
+  },
+  {
+    "id": "headset-havit-h2002p",
+    "name": "Havit H2002p",
+    "brand": "Havit",
+    "kind": "headset",
+    "analog": true
+  },
+  {
+    "id": "headset-havit-h2015d",
+    "name": "Havit H2015d",
+    "brand": "Havit",
+    "kind": "headset",
+    "analog": true
+  },
+  {
+    "id": "headset-havit-h2008d",
+    "name": "Havit H2008d",
+    "brand": "Havit",
+    "kind": "headset",
+    "analog": true
+  },
+  {
+    "id": "headset-corsair-hs50-pro",
+    "name": "Corsair HS50 Pro",
+    "brand": "Corsair",
+    "kind": "headset",
+    "analog": true
+  },
+  {
+    "id": "headset-corsair-void-rgb-elite",
+    "name": "Corsair Void RGB Elite",
+    "brand": "Corsair",
+    "kind": "headset"
+  },
+  {
+    "id": "headset-corsair-hs70-pro",
+    "name": "Corsair HS70 Pro",
+    "brand": "Corsair",
+    "kind": "headset"
+  },
+  {
+    "id": "headset-corsair-hs80-rgb-wireless",
+    "name": "Corsair HS80 RGB Wireless",
+    "brand": "Corsair",
+    "kind": "headset"
+  },
+  {
+    "id": "headset-steelseries-arctis-nova-pro",
+    "name": "SteelSeries Arctis Nova Pro",
+    "brand": "SteelSeries",
+    "kind": "headset"
+  },
+  {
+    "id": "headset-steelseries-arctis-7",
+    "name": "SteelSeries Arctis 7",
+    "brand": "SteelSeries",
+    "kind": "headset"
+  },
+  {
+    "id": "headset-steelseries-arctis-3",
+    "name": "SteelSeries Arctis 3",
+    "brand": "SteelSeries",
+    "kind": "headset",
+    "analog": true
+  },
+  {
+    "id": "headset-steelseries-arctis-5",
+    "name": "SteelSeries Arctis 5",
+    "brand": "SteelSeries",
+    "kind": "headset"
+  },
+  {
+    "id": "headset-steelseries-arctis-nova-1",
+    "name": "SteelSeries Arctis Nova 1",
+    "brand": "SteelSeries",
+    "kind": "headset",
+    "analog": true
+  },
+  {
+    "id": "headset-fallen-morcego",
+    "name": "Fallen Morcego",
+    "brand": "Fallen",
+    "kind": "headset"
+  },
+  {
+    "id": "headset-fallen-pantera-headset",
+    "name": "Fallen Pantera Headset",
+    "brand": "Fallen",
+    "kind": "headset"
+  },
+  {
+    "id": "headset-jbl-quantum-100",
+    "name": "JBL Quantum 100",
+    "brand": "JBL",
+    "kind": "headset",
+    "analog": true
+  },
+  {
+    "id": "headset-jbl-quantum-200",
+    "name": "JBL Quantum 200",
+    "brand": "JBL",
+    "kind": "headset",
+    "analog": true
+  },
+  {
+    "id": "headset-jbl-quantum-400",
+    "name": "JBL Quantum 400",
+    "brand": "JBL",
+    "kind": "headset"
+  },
+  {
+    "id": "headset-jbl-quantum-tws",
+    "name": "JBL Quantum TWS",
+    "brand": "JBL",
+    "kind": "headset"
+  },
+  {
+    "id": "headset-husky-snow",
+    "name": "Husky Snow",
+    "brand": "Husky",
+    "kind": "headset"
+  },
+  {
+    "id": "headset-husky-tactical",
+    "name": "Husky Tactical",
+    "brand": "Husky",
+    "kind": "headset"
+  },
+  {
+    "id": "headset-pichau-p831",
+    "name": "Pichau P831",
+    "brand": "Pichau",
+    "kind": "headset"
+  },
+  {
+    "id": "headset-kz-zsn-pro",
+    "name": "KZ ZSN Pro",
+    "brand": "KZ",
+    "kind": "headset",
+    "analog": true
+  },
+  {
+    "id": "headset-kz-zs10-pro-x",
+    "name": "KZ ZS10 Pro X",
+    "brand": "KZ",
+    "kind": "headset",
+    "analog": true
+  },
+  {
+    "id": "headset-kz-zex",
+    "name": "KZ ZEX",
+    "brand": "KZ",
+    "kind": "headset",
+    "analog": true
+  },
+  {
+    "id": "headset-kz-edx-pro",
+    "name": "KZ EDX Pro",
+    "brand": "KZ",
+    "kind": "headset",
+    "analog": true
+  },
+  {
+    "id": "headset-kz-zas",
+    "name": "KZ ZAS",
+    "brand": "KZ",
+    "kind": "headset",
+    "analog": true
+  },
+  {
+    "id": "headset-qkz-ak6",
+    "name": "QKZ AK6",
+    "brand": "QKZ",
+    "kind": "headset",
+    "analog": true
+  },
+  {
+    "id": "headset-qkz-hbb",
+    "name": "QKZ HBB",
+    "brand": "QKZ",
+    "kind": "headset",
+    "analog": true
+  },
+  {
+    "id": "headset-truthear-x-crinacle-zero",
+    "name": "TRUTHEAR x Crinacle Zero",
+    "brand": "TRUTHEAR",
+    "kind": "headset",
+    "analog": true
+  },
+  {
+    "id": "headset-truthear-hexa",
+    "name": "TRUTHEAR Hexa",
+    "brand": "TRUTHEAR",
+    "kind": "headset",
+    "analog": true
+  },
+  {
+    "id": "headset-moondrop-chu-ii",
+    "name": "Moondrop Chu II",
+    "brand": "Moondrop",
+    "kind": "headset",
+    "analog": true
+  },
+  {
+    "id": "headset-moondrop-aria",
+    "name": "Moondrop Aria",
+    "brand": "Moondrop",
+    "kind": "headset",
+    "analog": true
+  },
+  {
+    "id": "headset-moondrop-kato",
+    "name": "Moondrop Kato",
+    "brand": "Moondrop",
+    "kind": "headset",
+    "analog": true
+  },
+  {
+    "id": "headset-7hz-salnotes-zero",
+    "name": "7Hz Salnotes Zero",
+    "brand": "7Hz",
+    "kind": "headset",
+    "analog": true
+  },
+  {
+    "id": "headset-tangzu-wan-er-s-g",
+    "name": "Tangzu Wan'er S.G",
+    "brand": "Tangzu",
+    "kind": "headset",
+    "analog": true
+  },
+  {
+    "id": "headset-simgot-ew200",
+    "name": "Simgot EW200",
+    "brand": "Simgot",
+    "kind": "headset",
+    "analog": true
+  },
+  {
+    "id": "headset-simgot-em6l",
+    "name": "Simgot EM6L",
+    "brand": "Simgot",
+    "kind": "headset",
+    "analog": true
+  },
+  {
+    "id": "headset-cca-cra",
+    "name": "CCA CRA",
+    "brand": "CCA",
+    "kind": "headset",
+    "analog": true
+  },
+  {
+    "id": "headset-cca-c12",
+    "name": "CCA C12",
+    "brand": "CCA",
+    "kind": "headset",
+    "analog": true
+  },
+  {
+    "id": "headset-dunu-titan-s",
+    "name": "Dunu Titan S",
+    "brand": "Dunu",
+    "kind": "headset",
+    "analog": true
+  },
+  {
+    "id": "headset-kiwi-ears-cadenza",
+    "name": "Kiwi Ears Cadenza",
+    "brand": "Kiwi Ears",
+    "kind": "headset",
+    "analog": true
+  },
+  {
+    "id": "headset-blon-bl-03",
+    "name": "Blon BL-03",
+    "brand": "Blon",
+    "kind": "headset",
+    "analog": true
+  },
+  {
+    "id": "headset-trn-mt1",
+    "name": "Trn MT1",
+    "brand": "Trn",
+    "kind": "headset",
+    "analog": true
+  },
+  {
+    "id": "headset-linsoul-tinhifi-t2",
+    "name": "Linsoul TINHIFI T2",
+    "brand": "Linsoul",
+    "kind": "headset",
+    "analog": true
+  },
+  {
+    "id": "headset-fifine-h6",
+    "name": "Fifine H6",
+    "brand": "Fifine",
+    "kind": "headset"
+  },
+  {
+    "id": "headset-fifine-ampligame-h9",
+    "name": "Fifine AmpliGame H9",
+    "brand": "Fifine",
+    "kind": "headset"
+  }
+]

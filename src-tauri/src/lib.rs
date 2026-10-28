@@ -1,10 +1,12 @@
 mod audio;
 #[cfg(all(windows, feature = "hardware-hid"))]
 mod aula_wireless;
+mod battery;
 pub mod controls;
 mod discovery;
 pub mod hardware_test;
 mod hid;
+mod hid_battery;
 mod identity;
 mod metadata;
 mod monitor;
@@ -13,6 +15,7 @@ mod photo_rules;
 pub mod photos;
 mod pnp;
 pub mod protocol_hid;
+mod windows_battery;
 
 use tauri::Manager;
 
@@ -26,6 +29,19 @@ pub fn run() {
             }
         }))
         .setup(|app| {
+            if let Some(window) = app.get_webview_window("main") {
+                // Keep the fixed window inside the work area at the monitor's DPI.
+                if let Ok(Some(monitor)) = window.current_monitor() {
+                    let scale = monitor.scale_factor();
+                    let area = monitor.work_area();
+                    let width =
+                        1100.0_f64.min((f64::from(area.size.width) / scale - 32.0).max(320.0));
+                    let height =
+                        750.0_f64.min((f64::from(area.size.height) / scale - 32.0).max(320.0));
+                    window.set_size(tauri::LogicalSize::new(width, height))?;
+                    window.center()?;
+                }
+            }
             monitor::register(app.handle());
             app.manage(photos::PhotoService::new(
                 app.path().app_cache_dir()?.join("device-photos-v1"),

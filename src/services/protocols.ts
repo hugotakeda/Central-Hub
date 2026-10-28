@@ -4,6 +4,9 @@ import type { HidScan } from '../domain/types';
 import type { ProtocolDevice, ProtocolPanelHost, PanelSnapshot } from './protocolTypes';
 import type { MouseStatus } from '@openmouse/protocol/drivers/mouse-types';
 import type { KeyboardStatus } from '@openmouse/keyboard-protocol/drivers/keyboard-types';
+import { discoverVia, viaDefinition } from './ownVia';
+import { hardwareGroups } from '../domain/hardwareGroups';
+import { upstreamDescriptorMatches } from '../domain/protocolRouting';
 
 type Registries = { mouse: typeof import('@openmouse/protocol/drivers'); keyboard: typeof import('@openmouse/keyboard-protocol/drivers') };
 let registry: Promise<Registries> | null = null;
@@ -28,17 +31,20 @@ function scopedHid(devices:NativeHidDevice[], listeners = new Map<string,Set<(ev
     removeEventListener(type,listener){listeners.get(type)?.delete(listener);},
   };
 }
-async function vendors() {const r=await registries();return [...new Set([...r.mouse.SUPPORTED_HID_FILTERS,...r.keyboard.SUPPORTED_HID_FILTERS].map(f=>f.vendorId).filter((v):v is number=>v!==undefined))];}
+async function vendors() {const r=await registries();return [...new Set([0x3434,0xfffe,...[...r.mouse.SUPPORTED_HID_FILTERS,...r.keyboard.SUPPORTED_HID_FILTERS].map(f=>f.vendorId).filter((v):v is number=>v!==undefined)])];}
 async function getInventory() {return invoke<NativeInterface[]>('protocol_inventory',{vendorIds:await vendors()});}
 function nativeF75(scan:HidScan, physicalId:string) {return scan.devices.some(d=>d.physical_id===physicalId && (d.identity?.model==='f75' || d.vendor_id===0x258a&&d.product_id===0x010c || d.vendor_id===0x3554&&d.product_id===0xfa09));}
 
 export async function discoverProtocols(scan:HidScan,onlyId?:string):Promise<ProtocolDevice[]> {
   if(!isTauri()||!scan.available) return [];
   inventory=await getInventory();
+  scan.via=await discoverVia(inventory.filter(i=>!onlyId||i.physicalId===onlyId));
+  const audioIds=new Set(hardwareGroups({...scan,protocols:[]},[]).filter(g=>g.kind==='headset'||g.kind==='audio').flatMap(g=>[g.id,...g.hid.map(d=>d.physical_id??d.id)]));
   const r=await registries(), upstream=await import('../../vendor/openmouse/src/device/device-clients'), groups=new Map<string,NativeInterface[]>();
   for(const info of inventory) {
     if(onlyId&&info.physicalId!==onlyId)continue;
-    if(nativeF75(scan,info.physicalId)||scan.devices.some(d=>d.id===info.id&&d.virtual_device))continue;
+    if(audioIds.has(info.physicalId)||!upstreamDescriptorMatches(info))continue;
+    if(nativeF75(scan,info.physicalId)||inventory.some(i=>i.physicalId===info.physicalId&&viaDefinition(i))||scan.devices.some(d=>d.id===info.id&&d.virtual_device))continue;
     const devices=groups.get(info.physicalId)??[];devices.push(info);groups.set(info.physicalId,devices);
   }
   const found:ProtocolDevice[]=[];

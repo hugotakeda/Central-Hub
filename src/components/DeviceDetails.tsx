@@ -12,6 +12,9 @@ export function DeviceFacts({ group, snapshot }: { group: HardwareGroup; snapsho
   const unique = (items: (string | null | undefined)[]) => [...new Set(items.filter(Boolean))].join(' / ') || 'Não informado';
   const rows: [string, string][] = [
     ['Fabricante', manufacturer(group)], ['Tipo', kindLabel(group.kind)],
+    ['Modelo de catálogo',group.catalog?.name??'Não associado'],
+    ['Origem do modelo',group.manualAudio?'Escolhido por você':group.via&&!group.via.error?'Resposta VIA e variante USB':group.catalog?'Nome exato informado pelo Windows/dispositivo':'Identificação do dispositivo'],
+    ['Áudio físico',group.audio.map(e=>e.form_factor??'Não informado').join(' / ')||'Não exposto'],
     ['VID / PID', unique([...group.hid, ...(group.system ?? [])].filter(d => d.vendor_id !== null && d.product_id !== null).map(d => `0x${hex(d.vendor_id!)} / 0x${hex(d.product_id!)}`))],
     ['Barramento', unique(group.hid.map(d => d.bus))],
     ['Protocolo integrado', identity?.method ?? (group.audio.length ? 'Windows Core Audio' : 'Windows HID · metadados')],

@@ -1,0 +1,9 @@
+import { useState } from 'react';
+import { peripheralCatalog } from '../domain/peripheralCatalog';
+import { kindLabel } from '../domain/hardwareGroups';
+import { useGearStore } from '../store/useGearStore';
+export default function Catalog(){
+  const [query,setQuery]=useState(''),[kind,setKind]=useState('all'),navigate=useGearStore(s=>s.navigate);
+  const products=peripheralCatalog.filter(p=>(kind==='all'||p.kind===kind)&&p.name.toLocaleLowerCase().includes(query.toLocaleLowerCase()));
+  return <><div className="page-title"><div><h1>Catálogo de periféricos</h1><p>75 mouses · 75 teclados · 75 headsets e fones</p></div><button className="text-button" onClick={()=>navigate('home')}>Voltar aos dispositivos</button></div><p className="field-help catalog-intro">Modelos da sua lista, usados para identificação pelo nome, busca de fotos e associação de fones P2. O catálogo não confirma presença nem garante configuração: os controles dependem da resposta real do protocolo e da versão do hardware.</p><div className="catalog-toolbar"><input aria-label="Buscar no catálogo" placeholder="Marca ou modelo" value={query} onChange={e=>setQuery(e.target.value)}/><select aria-label="Categoria do catálogo" value={kind} onChange={e=>setKind(e.target.value)}><option value="all">Todas as categorias</option><option value="mouse">Mouses</option><option value="keyboard">Teclados</option><option value="headset">Headsets e fones</option></select><span className="muted">{products.length} modelos</span></div><div className="catalog-list">{products.map(p=><article key={p.id}><div><strong>{p.name}</strong><small>{p.brand} · {kindLabel(p.kind)}</small></div><span className="tag">{p.analog?'P2 · associação de áudio':'Identificação por nome'}</span></article>)}</div>{!products.length&&<p className="empty-state">Nenhum modelo neste filtro.</p>}</>;
+}

@@ -8,6 +8,7 @@ pub struct AudioEndpoint {
     pub volume: Option<u8>,
     pub muted: Option<bool>,
     pub physical_id: Option<String>,
+    pub form_factor: Option<String>,
 }
 
 #[cfg(windows)]
@@ -19,11 +20,13 @@ mod native {
             Devices::FunctionDiscovery::{PKEY_Device_ContainerId, PKEY_Device_FriendlyName},
             Media::Audio::{
                 eCapture, eRender, Endpoints::IAudioEndpointVolume, IMMDevice, IMMDeviceEnumerator,
-                MMDeviceEnumerator, DEVICE_STATE_ACTIVE,
+                MMDeviceEnumerator, PKEY_AudioEndpoint_FormFactor, DEVICE_STATE_ACTIVE,
             },
             System::Com::{
                 CoCreateInstance, CoInitializeEx, CoTaskMemFree, CoUninitialize,
-                StructuredStorage::{PropVariantToGUID, PropVariantToStringAlloc},
+                StructuredStorage::{
+                    PropVariantToGUID, PropVariantToStringAlloc, PropVariantToUInt32,
+                },
                 CLSCTX_ALL, COINIT_MULTITHREADED, STGM_READ,
             },
         },
@@ -101,6 +104,25 @@ mod native {
                     })()
                     .unwrap_or_else(|_| "Endpoint de áudio sem nome".into());
                     let (volume, muted) = state(&device);
+                    let form_factor = (|| -> windows::core::Result<String> {
+                        let props = device.OpenPropertyStore(STGM_READ)?;
+                        let value = props.GetValue(&PKEY_AudioEndpoint_FormFactor)?;
+                        Ok(match PropVariantToUInt32(&value)? {
+                            0 => "network",
+                            1 => "speakers",
+                            2 => "line",
+                            3 => "headphones",
+                            4 => "microphone",
+                            5 => "headset",
+                            6 => "handset",
+                            7 => "digital",
+                            8 => "spdif",
+                            9 => "display",
+                            _ => "unknown",
+                        }
+                        .into())
+                    })()
+                    .ok();
                     let physical_id = (|| -> windows::core::Result<Option<String>> {
                         let props = device.OpenPropertyStore(STGM_READ)?;
                         let value = props.GetValue(&PKEY_Device_ContainerId)?;
@@ -118,6 +140,7 @@ mod native {
                         volume,
                         muted,
                         physical_id,
+                        form_factor,
                     });
                 }
             }

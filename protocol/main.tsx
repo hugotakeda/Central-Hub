@@ -16,9 +16,11 @@ const ShareProfileDialog=lazy(()=>import('../vendor/openmouse/src/features/profi
 const root=createRoot(document.getElementById('control-app')!);
 const host=window.parent!==window ? window.parent.__CENTRAL_HUB_PANEL__ : undefined;
 
-function Panel() {
+function Panel({initialization}:{initialization:Promise<void>}) {
   const snapshot=useControl(),[capture,setCapture]=useState(false),[share,setShare]=useState(false);
   const [entered,setEntered]=useState(false),[refreshing,setRefreshing]=useState(false);
+  const [connecting,setConnecting]=useState(true),[connectionError,setConnectionError]=useState('');
+  useEffect(()=>{let disposed=false;void initialization.catch(e=>{if(!disposed)setConnectionError(String(e));}).finally(()=>{if(!disposed)setConnecting(false);});return()=>{disposed=true;};},[initialization]);
   useEffect(()=>{
     if(!entered&&(snapshot.status||snapshot.keyboard)){
       setEntered(true);void control.showDeviceDashboard().then(()=>control.setWorkspaceTab(host!.initialTab));
@@ -40,8 +42,8 @@ function Panel() {
     document.addEventListener('click',navigate,true);
     return()=>document.removeEventListener('click',navigate,true);
   },[]);
-  const refresh=async()=>{setRefreshing(true);try{await control.refreshStatus();if(!snapshot.status&&!snapshot.keyboard)await control.connect();}finally{setRefreshing(false);}};
-  return <UiLocaleContext.Provider value="pt"><div className="central-protocol-shell" data-interface-theme="mono"><header className="central-protocol-toolbar"><span>Configuração do dispositivo</span><button className="om-btn is-ghost is-sm" disabled={refreshing||snapshot.settingInProgress||snapshot.pending.count>0} onClick={()=>void refresh()}>{refreshing?'Consultando…':'Atualizar leitura'}</button></header><main className="full-desktop-content"><OverviewPage snapshot={snapshot} onOpenCapture={()=>setCapture(true)} onShareProfile={()=>setShare(true)}/></main><PendingBar snapshot={snapshot}/><ToastHost toasts={snapshot.toasts} locale="pt"/><Suspense fallback={null}>{capture&&<CaptureDialog open onClose={()=>setCapture(false)} locale="pt"/>}{share&&<ShareProfileDialog open onClose={()=>setShare(false)} snapshot={snapshot}/>}</Suspense><footer className="central-protocol-credit">Protocolos e controles baseados no OpenMouse · AGPL-3.0-or-later · <a href="https://github.com/hugotakeda/Central-Hub" target="_blank" rel="noreferrer">Código-fonte e créditos</a></footer></div></UiLocaleContext.Provider>;
+  const refresh=async()=>{setRefreshing(true);setConnecting(true);setConnectionError('');try{if(snapshot.status||snapshot.keyboard)await control.refreshStatus();else await control.connect();}catch(error){setConnectionError(String(error));}finally{setRefreshing(false);setConnecting(false);}};
+  return <UiLocaleContext.Provider value="pt"><div className="central-protocol-shell" data-interface-theme="mono"><header className="central-protocol-toolbar"><span>Configuração do dispositivo</span><button className="om-btn is-ghost is-sm" disabled={refreshing||snapshot.settingInProgress||snapshot.pending.count>0} onClick={()=>void refresh()}>{refreshing?'Consultando…':'Atualizar leitura'}</button></header><main className="full-desktop-content">{snapshot.status||snapshot.keyboard?<OverviewPage snapshot={{...snapshot,deviceView:'device'}} onOpenCapture={()=>setCapture(true)} onShareProfile={()=>setShare(true)}/>:<section className="central-connection"><div className="central-connection-art">{host!.artwork?<img src={host!.artwork} alt={host!.deviceName??'Dispositivo selecionado'}/>:<span aria-hidden="true">◇</span>}</div><div className="central-connection-copy"><button className="central-back" onClick={()=>host!.leave()}>← Dispositivos</button><p className="central-eyebrow">CONFIGURAÇÃO</p><h1>{host!.deviceName??'Dispositivo selecionado'}</h1><div className="central-connection-status" role="status"><i className={connecting?'is-connecting':''}/>{connecting?'Lendo o dispositivo…':'Não foi possível ler o dispositivo'}</div><p>{connecting?'Consultando os ajustes atuais. Isso pode levar alguns segundos.':'Verifique a conexão, acorde o periférico e tente novamente.'}</p>{!connecting&&<><div className="central-connection-actions"><button className="om-btn is-primary" disabled={refreshing} onClick={()=>void refresh()}>Tentar novamente</button><button className="om-btn is-ghost" onClick={()=>host!.leave()}>Voltar aos dispositivos</button></div><details className="central-connection-details"><summary>Detalhes da leitura</summary><p>{connectionError||snapshot.readStatus||'O dispositivo não respondeu à consulta.'}</p></details></>}</div></section>}</main><PendingBar snapshot={snapshot}/><ToastHost toasts={snapshot.toasts} locale="pt"/><Suspense fallback={null}>{capture&&<CaptureDialog open onClose={()=>setCapture(false)} locale="pt"/>}{share&&<ShareProfileDialog open onClose={()=>setShare(false)} snapshot={snapshot}/>}</Suspense><footer className="central-protocol-credit">Protocolos e controles baseados no OpenMouse · AGPL-3.0-or-later · <a href="https://github.com/hugotakeda/Central-Hub" target="_blank" rel="noreferrer">Código-fonte e créditos</a></footer></div></UiLocaleContext.Provider>;
 }
 if(!host)root.render(<p>Abra a configuração pelo aplicativo Central Hub.</p>);
 else {
@@ -49,6 +51,6 @@ else {
   setSoundsEnabled(false);
   await ensureDisplayLocale('pt');
   control.setPreference('locale','pt');control.setPreference('theme','Mono');control.setPreference('reducedMotion',true);control.setPreference('enabledSounds',false);
-  control.start();root.render(<Panel/>);
+  const initialization=control.start();root.render(<Panel initialization={initialization}/>);
   window.addEventListener('pagehide',()=>void control.stop());
 }
