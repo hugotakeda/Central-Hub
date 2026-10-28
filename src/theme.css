@@ -1,0 +1,23 @@
+:root{
+  color-scheme:dark;
+  --bg:#0d0d0d;
+  --sidebar:#090909;
+  --panel:#191919;
+  --card:#1a1a1a;
+  --hover:#222222;
+  --selected:#292929;
+  --input:#111111;
+  --border:#303030;
+  --border-strong:#454545;
+  --text:#ededed;
+  --text-secondary:#c2c2c2;
+  --muted:#a0a0a0;
+  --subtle:#858585;
+  --accent:#dedede;
+  --on-accent:#101010;
+  --warning:#c1ab83;
+  --error-bg:#2b1e1e;
+  --error-border:#654040;
+  --error-text:#e5b6a6;
+  --close-hover:#a53636;
+}

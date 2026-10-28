@@ -1,0 +1,38 @@
+[package]
+name = "central-hub"
+version = "0.9.1"
+default-run = "central-hub"
+description = "Central Hub — painel local de periféricos"
+authors = ["Central Hub"]
+edition = "2021"
+rust-version = "1.82"
+
+[lib]
+name = "central_hub_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-single-instance = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+base64 = "0.23.1"
+url = "2.5"
+regex = "1"
+
+[target.'cfg(windows)'.dependencies]
+hidapi = { version = "2.6.7", optional = true, default-features = false, features = ["windows-native"] }
+windows = { version = "0.62.2", features = ["Win32_Networking_WinHttp", "Win32_Graphics_Imaging", "Win32_UI_WindowsAndMessaging", "Win32_Devices_DeviceAndDriverInstallation", "Win32_Devices_Properties", "Win32_Devices_FunctionDiscovery", "Win32_Media_Audio", "Win32_Media_Audio_Endpoints", "Win32_System_Com", "Win32_System_Com_StructuredStorage", "Win32_System_Variant", "Win32_UI_Shell_PropertiesSystem"] }
+
+[features]
+default = ["hardware-hid"]
+hardware-hid = ["dep:hidapi"]
+
+[profile.release]
+opt-level = "s"
+lto = "thin"
+codegen-units = 1
+strip = true

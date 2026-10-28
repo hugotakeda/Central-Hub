@@ -1,0 +1,5 @@
+import { batteryHistory } from '../domain/localData';
+export function BatteryHistory({ id, updatedAt }: { id: string; updatedAt: number }) {
+  const points = batteryHistory(id); void updatedAt;
+  return <section className="surface"><h2>Histórico de bateria</h2><p className="field-help">Últimos 7 dias · somente leituras realizadas neste computador.</p>{points.length >= 2 ? <><svg className="battery-chart" viewBox="0 0 400 110" role="img" aria-label={`Histórico com ${points.length} leituras reais de bateria, entre ${points[0].value}% e ${points.at(-1)!.value}%`}><path d={`M${points.map(p => `${10 + (p.at-points[0].at)/Math.max(1,points.at(-1)!.at-points[0].at)*380},${100-p.value*.85}`).join(' L')}`} fill="none" stroke="currentColor" strokeWidth="2"/></svg><div className="chart-labels"><span>{new Date(points[0].at).toLocaleString('pt-BR')}</span><span>{new Date(points.at(-1)!.at).toLocaleString('pt-BR')}</span></div></> : <div className="empty-state"><p>{points.length ? 'Primeira leitura registrada.' : 'Ainda não há leituras registradas.'}</p><p>O gráfico aparecerá após uma próxima leitura. Sem consultas em segundo plano.</p></div>}</section>;
+}
