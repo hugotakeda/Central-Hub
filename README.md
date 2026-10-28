@@ -10,10 +10,10 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/hugotakeda/Central-Hub/releases/latest"><img src="https://img.shields.io/badge/vers%C3%A3o-0.0.4-dedede?style=flat-square" alt="Versão 0.0.4"></a>
+  <a href="https://github.com/hugotakeda/Central-Hub/releases/latest"><img src="https://img.shields.io/badge/vers%C3%A3o-0.0.5-dedede?style=flat-square" alt="Versão 0.0.5"></a>
   <img src="https://img.shields.io/badge/plataforma-Windows%20x64-303030?style=flat-square" alt="Plataforma Windows x64">
   <img src="https://img.shields.io/badge/tecnologia-Tauri%20%2B%20Rust-303030?style=flat-square&amp;logo=tauri&amp;logoColor=white" alt="Desenvolvido com Tauri e Rust">
-  <img src="https://img.shields.io/badge/testes%20automatizados-105%20aprovados-303030?style=flat-square" alt="105 testes automatizados aprovados na versão 0.0.4">
+  <img src="https://img.shields.io/badge/testes%20automatizados-105%20aprovados-303030?style=flat-square" alt="105 testes automatizados aprovados na versão 0.0.5">
   <a href="LICENSE"><img src="https://img.shields.io/badge/licen%C3%A7a-AGPL%203.0-303030?style=flat-square" alt="Licença AGPL, versão 3 ou posterior"></a>
 </p>
 
@@ -32,14 +32,16 @@ A partir da **0.0.3**, o aplicativo incorpora as bibliotecas e o painel de confi
 
 A **0.0.4** adiciona um catálogo local de **225 modelos**, associação de fones **P2**, novos provedores de bateria e um cliente **VIA/QMK próprio**. A janela tem tamanho fixo e a interface recebeu correções de rolagem e notificações. Veja [protocolos próprios, catálogo e limites](docs/PROTOCOLOS-NATIVOS.md).
 
+A **0.0.5** padroniza o nome instalado como **CentralHub** e o pacote como **CentralHub-Setup.exe**, com a logo do projeto no assistente, nos ícones e no desinstalador. Veja [instalador e atualização de instalações anteriores](docs/INSTALADOR.md).
+
 ## Download e instalação
 
 | Arquivo | Indicação |
 |---|---|
-| [**Instalador para Windows x64**](https://github.com/hugotakeda/Central-Hub/releases/download/v0.0.4/Central-Hub-0.0.4-Setup.exe) | Recomendado para instalar o aplicativo. |
-| [**Executável independente**](https://github.com/hugotakeda/Central-Hub/releases/download/v0.0.4/CentralHub.exe) | Para abrir sem passar pelo instalador. Requer o Microsoft Edge WebView2 Runtime. |
-| [**Código-fonte**](https://github.com/hugotakeda/Central-Hub/releases/download/v0.0.4/Central-Hub-0.0.4-fonte.zip) | Fontes correspondentes ao executável, inclusive o painel adaptado e os avisos de licença. |
-| [**Checksums SHA-256**](https://github.com/hugotakeda/Central-Hub/releases/download/v0.0.4/SHA256SUMS.txt) | Para conferir a integridade dos arquivos baixados. |
+| [**Instalador para Windows x64**](https://github.com/hugotakeda/Central-Hub/releases/download/v0.0.5/CentralHub-Setup.exe) | Recomendado para instalar o aplicativo. |
+| [**Executável independente**](https://github.com/hugotakeda/Central-Hub/releases/download/v0.0.5/CentralHub.exe) | Para abrir sem passar pelo instalador. Requer o Microsoft Edge WebView2 Runtime. |
+| [**Código-fonte**](https://github.com/hugotakeda/Central-Hub/releases/download/v0.0.5/Central-Hub-0.0.5-fonte.zip) | Fontes correspondentes ao executável, inclusive o painel adaptado e os avisos de licença. |
+| [**Checksums SHA-256**](https://github.com/hugotakeda/Central-Hub/releases/download/v0.0.5/SHA256SUMS.txt) | Para conferir a integridade dos arquivos baixados. |
 
 1. Baixe o instalador ou o executável independente.
 2. Feche qualquer versão anterior do Central Hub.
@@ -121,18 +123,21 @@ A porta **1420** precisa estar livre. A prévia no navegador serve para a interf
 npm test
 npm run check
 cargo test --manifest-path src-tauri/Cargo.toml --lib
-npm run tauri build
+npm run installer
 ```
 
-O executável é gerado em `src-tauri/target/release/central-hub.exe`. O instalador fica em `src-tauri/target/release/bundle/nsis/`.
+O executável é gerado em `src-tauri/target/release/CentralHub.exe`. O comando `npm run installer` também disponibiliza o pacote com nome fixo `src-tauri/target/release/bundle/nsis/CentralHub-Setup.exe`. O nome do produto instalado e dos atalhos é **CentralHub**, e o assistente utiliza a logo do projeto na abertura, no cabeçalho e nos ícones de instalação/desinstalação.
 
-A versão **0.0.4** passou em **62 testes de frontend e 43 testes unitários nativos**. O Cloud Flight também respondeu fisicamente à nova consulta de bateria com **3814 mV**, sem alteração de ajustes. O Superlight original também foi consultado fisicamente pelo cliente OpenMouse e pelo transporte HID nativo, sem alterar configurações. Os testes físicos são opcionais e não rodam na suíte comum. A validação de escrita USB/2,4 GHz do F75 feita na versão anterior permanece documentada; não foi repetida como se fosse uma validação dos outros modelos.
+As imagens do instalador já estão incluídas no repositório. Para regenerá-las após atualizar a logo, execute `./scripts/generate-installer-artwork.ps1` no Windows.
+
+A versão **0.0.5** passou em **62 testes de frontend e 43 testes unitários nativos**. Na validação da **0.0.4**, o Cloud Flight respondeu fisicamente à consulta de bateria com **3814 mV**, sem alteração de ajustes, e o Superlight original foi consultado pelo cliente OpenMouse e pelo transporte HID nativo. Os testes físicos são opcionais e não rodam na suíte comum. A atualização do instalador não repete esses resultados como novos testes de periféricos; a validação de escrita USB/2,4 GHz do F75 permanece documentada nas versões anteriores.
 
 ## Documentação técnica
 
 | Documento | Conteúdo |
 |---|---|
 | [Arquitetura](docs/ARQUITETURA.md) | Organização do aplicativo e comunicação com o hardware. |
+| [Instalador Windows](docs/INSTALADOR.md) | Nome fixo CentralHub, logo, geração do pacote e instalações anteriores. |
 | [Compatibilidade OpenMouse](docs/OPENMOUSE.md) | Catálogo, transporte nativo, painel incorporado, validação e limites. |
 | [Protocolos próprios e catálogo](docs/PROTOCOLOS-NATIVOS.md) | VIA/QMK, bateria, catálogo de 225 produtos, áudio P2 e limites de validação. |
 | [Protocolos](docs/PROTOCOLOS.md) | Referências técnicas de identificação e configuração. |

@@ -1,13 +1,14 @@
 {
   "name": "central-hub",
   "private": true,
-  "version": "0.0.4",
+  "version": "0.0.5",
   "type": "module",
   "scripts": {
     "dev": "vite --host 127.0.0.1 --port 1420 --strictPort",
     "build": "npm run check && vite build",
     "preview": "vite preview --host 127.0.0.1 --port 1420 --strictPort",
     "tauri": "tauri",
+    "installer": "node scripts/build-installer.mjs",
     "test": "vitest run",
     "check": "tsc --noEmit && tsc --noEmit -p protocol/tsconfig.json",
     "measure:bundle": "node scripts/measure-bundle.mjs"

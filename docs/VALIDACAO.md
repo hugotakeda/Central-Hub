@@ -103,3 +103,11 @@ Revisão na janela nativa 0.9.0: busca manual de Logitech G502 HERO exibiu a min
 Os dados de bateria do driver Windows são identificados como seu último valor. Fones P2 são associações manuais a saídas reais; não há identificação eletrônica de marca/modelo pelo plugue. Não foi declarada validação física de todos os modelos do catálogo.
 
 Revisão visual do executável final 0.0.4: a página Adicionar fone P2 apareceu na sidebar, com busca por “KZ ZS10” retornando o modelo correspondente, filtros de marca e resumo separado. Nenhuma associação foi salva durante a revisão. A configuração do Superlight apresentou o carregamento com nome e foto do aparelho e abriu diretamente os ajustes reais de 800 DPI e 1000 Hz, sem a lista interna de receptores/navegador. O Cloud Flight abriu o painel nativo com volume, microfone e leitura de 3806 mV, sem o erro do cliente de mouse HyperX. Nenhum ajuste de hardware foi aplicado nesta revisão.
+
+## Versão pública 0.0.5 — instalador CentralHub
+
+- 62 testes de frontend e 43 testes unitários nativos aprovados novamente. Um teste opcional de leitura física e quatro testes de escrita física permaneceram fora da execução comum.
+- TypeScript das duas interfaces, build Vite, compilação release e empacotamento NSIS concluídos com a versão 0.0.5.
+- Instalador e executável com `ProductName` e `FileDescription` iguais a `CentralHub`; pacote fixo `CentralHub-Setup.exe`.
+- Logo própria em BMP RGB de 24 bits, nas dimensões de 150 × 57 e 164 × 314 px, e ícone ICO do projeto. A revisão visual e a migração local realizadas no ajuste anterior ao lançamento estão descritas em [Instalador Windows](INSTALADOR.md).
+- O ajuste desta versão é de instalação e identidade do aplicativo. Os resultados físicos dos periféricos continuam vinculados às versões em que foram obtidos; nenhum comando de configuração de hardware foi necessário para esta publicação.

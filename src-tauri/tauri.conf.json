@@ -1,7 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "Central Hub",
-  "version": "0.0.4",
+  "productName": "CentralHub",
+  "mainBinaryName": "CentralHub",
+  "version": "0.0.5",
   "identifier": "com.centralhub.desktop",
   "build": {
     "beforeDevCommand": "npm run dev",
@@ -10,7 +11,7 @@
     "frontendDist": "../dist"
   },
   "app": {
-    "windows": [{ "title": "Central Hub", "width": 1100, "height": 750, "resizable": false, "maximizable": false, "fullscreen": false, "center": true, "decorations": false, "backgroundColor": "#0D0D0D" }],
+    "windows": [{ "title": "CentralHub", "width": 1100, "height": 750, "resizable": false, "maximizable": false, "fullscreen": false, "center": true, "decorations": false, "backgroundColor": "#0D0D0D" }],
     "security": {
       "csp": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src ipc: http://ipc.localhost; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'",
       "capabilities": ["default"]
@@ -22,6 +23,17 @@
     "shortDescription": "Seu painel local de periféricos",
     "category": "Utility",
     "icon": ["icons/32x32.png", "icons/128x128.png", "icons/128x128@2x.png", "icons/icon.ico"],
-    "windows": { "nsis": { "languages": ["PortugueseBR"], "displayLanguageSelector": false }, "webviewInstallMode": { "type": "downloadBootstrapper" } }
+    "windows": {
+      "nsis": {
+        "languages": ["PortugueseBR"],
+        "displayLanguageSelector": false,
+        "installerIcon": "icons/icon.ico",
+        "uninstallerIcon": "icons/icon.ico",
+        "headerImage": "installer/header.bmp",
+        "sidebarImage": "installer/sidebar.bmp",
+        "installerHooks": "installer/hooks.nsh"
+      },
+      "webviewInstallMode": { "type": "downloadBootstrapper" }
+    }
   }
 }
