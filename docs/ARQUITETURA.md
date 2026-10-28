@@ -1,6 +1,8 @@
-# Arquitetura — 0.9.1
+# Arquitetura — 0.0.2
 
 React → Zustand/estado local do formulário → IPC Tauri → Rust → HID/Core Audio.
+
+0.0.2 integra aula_wireless.rs como um alvo separado em controls.rs. Seleção de transporte e revalidação do modelo acontecem nativamente; a UI recebe somente ajustes tipados com limites. Revisões, leitura completa, eco por fragmento e releitura após SAVE protegem o fluxo de aplicação. A navegação Configurar seleciona a aba de ajustes, enquanto o clique no cartão continua abrindo a visão geral.
 
 Em 0.9.1, peripheralDevices seleciona mouses, teclados e headsets físicos para Home e Teste de hardware. A enumeração completa permanece disponível em Interfaces. Identificação do F75 pelo receptor Compx é independente da integração de configuração USB; supportsSettings impede enviar leituras de configuração com fio ao receptor. Consulte F75-SEM-FIO.md.
 

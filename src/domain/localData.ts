@@ -42,7 +42,7 @@ export function profileChanges(profile: LocalProfile, current: DeviceSettingsSna
     if (saved.dpi !== current.dpi) changes.push({ kind: 'mouse_dpi', dpi: saved.dpi });
     if (saved.polling_hz !== null && saved.polling_hz !== current.polling_hz) changes.push({ kind: 'mouse_polling', polling_hz: saved.polling_hz });
   } else if (saved.kind === 'keyboard' && current.kind === 'keyboard') {
-    if (!current.effect_options.includes(saved.effect) || saved.brightness !== null && (!Number.isInteger(saved.brightness) || saved.brightness < 1 || saved.brightness > 9) || saved.speed !== null && (!Number.isInteger(saved.speed) || saved.speed < 0 || saved.speed > 4)) throw new Error('Perfil de iluminação inválido.');
+    if (!current.effect_options.includes(saved.effect) || saved.brightness !== null && (!Number.isInteger(saved.brightness) || saved.brightness < (current.brightness_min ?? 1) || saved.brightness > 9) || saved.speed !== null && (!Number.isInteger(saved.speed) || saved.speed < 0 || saved.speed > 4)) throw new Error('Perfil de iluminação inválido.');
     if (saved.effect !== current.effect) changes.push({ kind: 'keyboard_effect', effect: saved.effect });
     if (saved.brightness !== null && saved.brightness !== current.brightness) changes.push({ kind: 'keyboard_brightness', brightness: saved.brightness });
     if (saved.speed !== null && saved.speed !== current.speed) changes.push({ kind: 'keyboard_speed', speed: saved.speed });

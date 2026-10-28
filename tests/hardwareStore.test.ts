@@ -52,10 +52,19 @@ it('coalesces concurrent discovery events and waits for the fresh result', async
   expect(useGearStore.getState()).toMatchObject({ scanning: false, scan: endpointScan() });
 });
 
-it('does not try wired settings on a protocol-identified wireless F75', async () => {
+it('reads settings through the native transport selected for a protocol-identified wireless F75', async () => {
   const s:HidScan={...empty(),devices:[{id:'wireless',physical_id:'receiver',vendor_id:0x3554,product_id:0xfa09,product_string:'2.4G Wireless Receiver',manufacturer:'Compx',usage_page:0xff02,usage:2,interface_number:1,bus:'USB',identity:{model:'f75',name:'AULA F75',method:'Compx 2.4 GHz · identificação',model_code:'CD'}}]};
   vi.mocked(bridge.scanHid).mockResolvedValueOnce(s);
+  vi.mocked(bridge.readDeviceSettings).mockResolvedValueOnce({device_id:'receiver',revision:'r1',settings:{kind:'keyboard',effect:15,effect_options:[0,15],brightness:3,speed:4,transport:'wireless',brightness_min:0}});
   await useGearStore.getState().scanHid();
-  expect(bridge.readDeviceSettings).not.toHaveBeenCalled();
+  expect(bridge.readDeviceSettings).toHaveBeenCalledWith('receiver');
+  expect(useGearStore.getState().readings.receiver.snapshot.settings).toMatchObject({transport:'wireless',effect:15});
   expect(useGearStore.getState().scan).toEqual(s);
+});
+
+it('opens the configuration tab directly and resets it for an overview navigation', () => {
+  useGearStore.getState().navigate('device','f75','performance');
+  expect(useGearStore.getState()).toMatchObject({page:'device',selectedId:'f75',deviceTab:'performance'});
+  useGearStore.getState().navigate('device','mouse');
+  expect(useGearStore.getState()).toMatchObject({selectedId:'mouse',deviceTab:'overview'});
 });

@@ -1,6 +1,6 @@
 [package]
 name = "central-hub"
-version = "0.9.1"
+version = "0.0.2"
 default-run = "central-hub"
 description = "Central Hub — painel local de periféricos"
 authors = ["Central Hub"]

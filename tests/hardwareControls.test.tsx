@@ -30,3 +30,12 @@ it('preserves mixed keyboard levels instead of displaying fabricated defaults', 
   expect(html).toContain('Brilho global');
   expect(html).not.toContain('type="color"');
 });
+
+it('labels wireless configuration accurately and allows a reported zero brightness', () => {
+  const state:KeyboardSettings={kind:'keyboard',effect:15,effect_options:[0,15],brightness:0,speed:2,transport:'wireless',brightness_min:0};
+  const html=renderToStaticMarkup(<KeyboardControls state={state} busy={false} apply={apply}/>);
+  expect(html).toContain('2,4 GHz');
+  expect(html).toContain('value="0" selected=""');
+  expect(html).toContain('Nível 0');
+  expect(html).not.toContain('por USB');
+});

@@ -19,3 +19,9 @@ it('keeps mixed lighting levels and rejects unsupported keyboard effects',()=>{
   expect(()=>profileChanges(profile({...keyboard,brightness:0}),keyboard)).toThrow();
   expect(()=>profileChanges(profile(keyboard),mouse)).toThrow();
 });
+
+it('allows zero brightness only when the current keyboard transport supports it',()=>{
+  const wireless:KeyboardSettings={kind:'keyboard',effect:15,effect_options:[0,15],brightness:3,speed:2,transport:'wireless',brightness_min:0};
+  expect(profileChanges(profile({...wireless,brightness:0}),wireless)).toEqual([{kind:'keyboard_brightness',brightness:0}]);
+  expect(()=>profileChanges(profile({...wireless,brightness:0}),{...wireless,transport:'usb',brightness_min:1})).toThrow();
+});

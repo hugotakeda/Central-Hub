@@ -21,6 +21,8 @@ pub enum Settings {
         effect_options: Vec<u8>,
         brightness: Option<u8>,
         speed: Option<u8>,
+        transport: String,
+        brightness_min: u8,
     },
 }
 #[derive(Debug, Deserialize)]
@@ -46,6 +48,7 @@ mod native {
     enum Target {
         Mouse { device: HidDevice, slot: u8 },
         Keyboard { device: HidDevice },
+        WirelessKeyboard { device: HidDevice },
     }
     pub fn physical_id(device: &HidDevice) -> Result<String, String> {
         let g = device.get_container_id().map_err(|e| e.to_string())?;
@@ -78,13 +81,23 @@ mod native {
             let keyboard = info.vendor_id() == 0x258a
                 && info.product_id() == 0x010c
                 && info.usage_page() == 0xff00;
-            if !mouse && !keyboard {
+            let wireless_keyboard = info.vendor_id() == 0x3554
+                && info.product_id() == 0xfa09
+                && info.usage_page() == 0xff02
+                && info.usage() == 2;
+            if !mouse && !keyboard && !wireless_keyboard {
                 continue;
             }
             let Ok(device) = info.open_device(&api) else {
                 continue;
             };
             if physical_id(&device).ok().as_deref() != Some(id) {
+                continue;
+            }
+            if wireless_keyboard {
+                if crate::identity::aula_wireless(&device)?.is_some() {
+                    return Ok(Target::WirelessKeyboard { device });
+                }
                 continue;
             }
             if mouse {
@@ -273,6 +286,8 @@ mod native {
             speed: (0..19)
                 .all(|i| config[65 + i * 2] >> 4 == speed)
                 .then_some(speed),
+            transport: "usb".into(),
+            brightness_min: 1,
         }
     }
     pub(super) fn patch_keyboard(
@@ -313,6 +328,14 @@ mod native {
             Target::Keyboard { device } => {
                 let c = keyboard_config(device)?;
                 (keyboard_state(&c), Some(c))
+            }
+            Target::WirelessKeyboard { device } => {
+                let config = crate::aula_wireless::read(device)?;
+                return Ok(SettingsSnapshot {
+                    device_id: id.into(),
+                    revision: digest(config),
+                    settings: crate::aula_wireless::state(&config),
+                });
             }
         };
         Ok(SettingsSnapshot {
@@ -392,6 +415,18 @@ mod native {
                 let next = patch_keyboard(&before, &change)?;
                 if next != before {
                     write_keyboard(device, &next)?;
+                }
+            }
+            Target::WirelessKeyboard { device } => {
+                let before = crate::aula_wireless::read(device)?;
+                if digest(before) != expected {
+                    return Err(
+                        "A iluminação mudou. Atualize os valores e aplique novamente.".into(),
+                    );
+                }
+                let next = crate::aula_wireless::patch(&before, &change)?;
+                if next != before {
+                    crate::aula_wireless::write(device, &next)?;
                 }
             }
         }
@@ -542,7 +577,11 @@ mod native {
             let devices = crate::hid::enumerate().unwrap();
             let id = &devices
                 .iter()
-                .find(|d| d.identity.as_ref().is_some_and(|i| i.model == "f75"))
+                .find(|d| {
+                    d.vendor_id == 0x258a
+                        && d.product_id == 0x010c
+                        && d.identity.as_ref().is_some_and(|i| i.model == "f75")
+                })
                 .expect("Conecte o F75 por USB")
                 .physical_id;
             let _guard = crate::hid::DEVICE_IO.lock().unwrap();
@@ -569,6 +608,41 @@ mod native {
         #[ignore = "Requer F75 USB; altera velocidade temporariamente e restaura os 128 bytes originais"]
         fn hardware_speed_roundtrip() {
             hardware_roundtrip(SettingChange::KeyboardSpeed { speed: 2 });
+        }
+        #[test]
+        #[ignore = "Requires a real wireless F75; changes and restores its current effect through the app API"]
+        fn hardware_wireless_apply_api() {
+            let id = std::env::var("CENTRAL_HUB_WIRELESS_ID")
+                .expect("Explicit receiver identity required");
+            let before = read(&id).unwrap();
+            let Settings::Keyboard {
+                effect,
+                ref transport,
+                ..
+            } = before.settings
+            else {
+                panic!("Not a keyboard")
+            };
+            assert_eq!(transport, "wireless");
+            let result = apply(
+                &id,
+                &before.revision,
+                SettingChange::KeyboardEffect {
+                    effect: if effect == 15 { 14 } else { 15 },
+                },
+            );
+            let current = read(&id).unwrap();
+            let restored = apply(
+                &id,
+                &current.revision,
+                SettingChange::KeyboardEffect { effect },
+            );
+            let restored = restored.expect("Failed to restore original effect through app API");
+            assert_eq!(
+                serde_json::to_value(&restored.settings).unwrap(),
+                serde_json::to_value(&before.settings).unwrap()
+            );
+            result.expect("The normal app API did not confirm the change");
         }
     }
 }

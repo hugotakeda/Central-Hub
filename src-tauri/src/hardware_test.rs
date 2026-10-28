@@ -32,6 +32,7 @@ fn check(name: &str, status: &str, detail: String, elapsed_ms: u128) -> Check {
 fn known_collection(vendor: u16, product: u16, page: u16, usage: u16) -> bool {
     (vendor == 0x046d && [0xc547, 0xc094].contains(&product) && page == 0xff00 && usage == 2)
         || (vendor == 0x258a && product == 0x010c && page == 0xff00)
+        || (vendor == 0x3554 && product == 0xfa09 && page == 0xff02 && usage == 2)
 }
 pub fn execute(device_id: &str, audio_ids: &[String]) -> Result<Report, String> {
     if device_id.is_empty()
@@ -192,6 +193,7 @@ mod tests {
     fn read_retry_is_restricted_to_existing_protocol_collections() {
         assert!(super::known_collection(0x046d, 0xc547, 0xff00, 2));
         assert!(super::known_collection(0x258a, 0x010c, 0xff00, 1));
+        assert!(super::known_collection(0x3554, 0xfa09, 0xff02, 2));
         assert!(!super::known_collection(0x046d, 0xc339, 0xff00, 2));
         assert!(!super::known_collection(0x046d, 0xc547, 1, 6));
         assert!(!super::known_collection(0x3554, 0xfa09, 0xff00, 2));

@@ -17,7 +17,7 @@ export interface SystemDevice { id: string; physical_id: string; name: string; m
 export interface MouseSettings {
   kind: 'mouse'; dpi: number; dpi_options: number[]; polling_hz: number | null; polling_options: number[]; mode: number | null; battery_percent: number | null;
 }
-export interface KeyboardSettings { kind: 'keyboard'; effect: number; effect_options: number[]; brightness: number | null; speed: number | null }
+export interface KeyboardSettings { kind: 'keyboard'; effect: number; effect_options: number[]; brightness: number | null; speed: number | null; transport?: 'usb' | 'wireless'; brightness_min?: number }
 export interface DeviceSettingsSnapshot { device_id: string; revision: string; settings: MouseSettings | KeyboardSettings }
 export interface DeviceReading { snapshot: DeviceSettingsSnapshot; at: number }
 export interface HardwareTestReport {

@@ -1,9 +1,10 @@
-# Modelos — 0.5.0
+# Modelos — 0.0.2
 
 | Produto | Identificação | Configuração |
 |---|---|---|
 | Superlight original micro-USB rosa | PRO X Wireless / 4093C0940000 | DPI, polling, modo; bateria lida |
 | Aula F75 preto por USB | Código CD | Efeitos internos, brilho e velocidade globais |
+| Aula F75 por receptor 2,4 GHz | Código CD retornado no relatório 13 | Efeitos internos, brilho e velocidade globais, com releitura |
 | HyperX Cloud Flight | Nome em HID/Core Audio | Volume/mudo Windows, saída e microfone |
 
 Neste PC, o mouse anunciou 100–25600 DPI em passos de 50 e 125/250/500/1000 Hz. A aplicação consulta essas opções em tempo de execução.

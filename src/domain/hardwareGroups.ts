@@ -85,6 +85,6 @@ export function connectionLabel(group: HardwareGroup): string {
 export const hex = (n: number) => n.toString(16).toUpperCase().padStart(4, '0');
 export const kindLabel = (kind: DeviceKind) => ({ mouse: 'Mouse', keyboard: 'Teclado', headset: 'Headset', controller: 'Controle', audio: 'Áudio', unknown: 'Dispositivo' })[kind];
 export const isWirelessF75 = (g: HardwareGroup) => g.model === 'f75' && g.hid.some(d=>d.vendor_id===0x3554 && d.product_id===0xfa09);
-export const supportsSettings = (g: HardwareGroup) => g.identity === 'protocol' && (g.model === 'superlight' || g.model === 'f75' && !isWirelessF75(g));
+export const supportsSettings = (g: HardwareGroup) => g.identity === 'protocol' && (g.model === 'superlight' || g.model === 'f75');
 export const canConfigure = (g: HardwareGroup) => g.audio.length > 0 || supportsSettings(g);
 export const manufacturer = (g: HardwareGroup) => g.model === 'g-pro-tkl' || g.model === 'superlight' ? 'Logitech' : g.model === 'f75' ? 'Aula' : g.model === 'cloud-flight' ? 'HyperX' : g.hid.find(d => d.manufacturer)?.manufacturer ?? 'Windows';

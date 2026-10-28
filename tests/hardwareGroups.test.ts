@@ -138,6 +138,6 @@ it('shows a protocol-confirmed wireless F75 as a keyboard with its photo and cor
   expect(illustration(groups[0]).id).toBe('f75');
   expect(connectionLabel(groups[0])).toBe('2,4 GHz · identificado');
   expect(connectionLabel({...groups[0],hid:groups[0].hid.map(d=>({...d,identity_cached:true}))})).toBe('2,4 GHz · receptor presente');
-  expect(supportsSettings(groups[0])).toBe(false);
-  expect(canConfigure(groups[0])).toBe(false);
+  expect(supportsSettings(groups[0])).toBe(true);
+  expect(canConfigure(groups[0])).toBe(true);
 });

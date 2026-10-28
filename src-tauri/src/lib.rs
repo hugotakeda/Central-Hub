@@ -1,4 +1,6 @@
 mod audio;
+#[cfg(all(windows, feature = "hardware-hid"))]
+mod aula_wireless;
 pub mod controls;
 mod discovery;
 pub mod hardware_test;

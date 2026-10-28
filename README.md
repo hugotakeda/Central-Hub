@@ -1,29 +1,95 @@
-# Central Hub 0.9.1
+<p align="center">
+  <img src="public/icon.svg" alt="Logo do Central Hub" width="96" height="96">
+</p>
 
-Central Hub is a lightweight Windows app for managing mice, keyboards, and headsets. Discover devices, view real hardware data and product photos, run diagnostics, and configure supported peripherals through a minimal black-and-graphite interface.
+<h1 align="center">Central Hub</h1>
 
-## Download
+<p align="center">
+  Seus periféricos em um só lugar.<br>
+  Um aplicativo leve para Windows, com interface minimalista em preto e grafite.
+</p>
 
-**Windows x64:** [Download the installer](https://github.com/hugotakeda/Central-Hub/releases/latest/download/Central-Hub-0.9.1-Setup.exe) or [download the standalone executable](https://github.com/hugotakeda/Central-Hub/releases/latest/download/CentralHub.exe).
+<p align="center">
+  <a href="https://github.com/hugotakeda/Central-Hub/releases/latest"><img src="https://img.shields.io/badge/vers%C3%A3o-0.0.2-dedede?style=flat-square" alt="Versão 0.0.2"></a>
+  <img src="https://img.shields.io/badge/plataforma-Windows%20x64-303030?style=flat-square" alt="Plataforma Windows x64">
+  <img src="https://img.shields.io/badge/tecnologia-Tauri%20%2B%20Rust-303030?style=flat-square&amp;logo=tauri&amp;logoColor=white" alt="Desenvolvido com Tauri e Rust">
+  <img src="https://img.shields.io/badge/testes%20automatizados-80%20aprovados-303030?style=flat-square" alt="80 testes automatizados aprovados na versão 0.0.2">
+</p>
 
-See [releases](https://github.com/hugotakeda/Central-Hub/releases) for source downloads, checksums, changes, and compatibility notes. The standalone app requires Microsoft Edge WebView2 Runtime. Close any older Central Hub instance before opening this version. The current interface is in Brazilian Portuguese.
+<p align="center">
+  <a href="https://github.com/hugotakeda/Central-Hub/releases/latest"><strong>Baixar o Central Hub</strong></a>
+  · <a href="#compatibilidade">Compatibilidade</a>
+  · <a href="#desenvolvimento">Desenvolvimento</a>
+  · <a href="https://github.com/hugotakeda/Central-Hub/issues">Relatar um problema</a>
+</p>
 
-## Supported features
+---
 
-| Device | Available integration |
+O **Central Hub** reúne detecção, configuração e diagnóstico de mouses, teclados e headsets. Exibe os dados que o dispositivo realmente informa, com fotografias dos produtos e controles organizados por recurso.
+
+## Download e instalação
+
+| Arquivo | Indicação |
 |---|---|
-| Logitech G Pro X Superlight, original | Reported DPI/polling options, software/onboard mode, battery readings |
-| Aula F75, USB, model CD confirmed | Built-in lighting effects, brightness and speed |
-| Aula F75, 2.4 GHz | Protocol-confirmed identification, product photo and diagnostics; use USB for lighting configuration |
-| HyperX Cloud Flight | Windows audio volume/mute controls; headset battery and DSP controls are not integrated |
-| Logitech G Pro TKL, wired | Detection, product photo and diagnostics; RGB/remapping configuration is not integrated |
-| Other mice and keyboards | Windows HID/PnP discovery and diagnostics where available; configuration depends on an implemented protocol |
+| [**Instalador para Windows x64**](https://github.com/hugotakeda/Central-Hub/releases/download/v0.0.2/Central-Hub-0.0.2-Setup.exe) | Recomendado para instalar o aplicativo. |
+| [**Executável independente**](https://github.com/hugotakeda/Central-Hub/releases/download/v0.0.2/CentralHub.exe) | Para abrir sem passar pelo instalador. Requer o Microsoft Edge WebView2 Runtime. |
+| [**Código-fonte**](https://github.com/hugotakeda/Central-Hub/releases/download/v0.0.2/Central-Hub-0.0.2-fonte.zip) | Projeto completo para estudar, desenvolver e compilar. |
+| [**Checksums SHA-256**](https://github.com/hugotakeda/Central-Hub/releases/download/v0.0.2/SHA256SUMS.txt) | Para conferir a integridade dos arquivos baixados. |
 
-Generic receivers, motherboard audio and internal controllers stay in **Interfaces**, outside the main peripheral list. Online photo suggestions show their source and use a bounded local cache. Unknown hardware values are never filled with simulated data. Detection does not imply universal configuration support.
+1. Baixe o instalador ou o executável independente.
+2. Feche qualquer versão anterior do Central Hub.
+3. Abra o aplicativo e selecione **Configurar** no cartão do periférico.
 
-## Build from source
+A interface está em português do Brasil. Apenas uma instância do aplicativo pode ficar aberta por vez.
 
-Requirements: Windows x64, Node.js 22.12+, Rust, Visual Studio C++ Build Tools and WebView2.
+## Recursos
+
+- **Detecção de periféricos:** agrupa as coleções HID, os dispositivos Plug and Play e os endpoints de áudio expostos pelo Windows.
+- **Configuração real:** apresenta os valores lidos e confirma as alterações por releitura, nos modelos com integração disponível.
+- **Fotos dos produtos:** prioriza imagens locais e oferece busca online com fonte, prévia, correção manual e cache limitado a 32 MB.
+- **Diagnóstico de hardware:** verifica presença, descritores, driver e leitura dos protocolos integrados, com relatório exportável.
+- **Teste manual de entrada:** permite conferir teclas, cliques e rolagem em uma área com foco.
+- **Perfis locais:** salva os ajustes lidos e aplica somente valores compatíveis com o dispositivo e o transporte atuais.
+- **Interface discreta:** tema preto e grafite, janela sem barra nativa e controles de janela revelados por foco ou passagem do mouse.
+
+Receptores genéricos, áudio da placa-mãe, interfaces virtuais e controladores internos ficam em **Interfaces**, separados dos cartões de periféricos.
+
+## Compatibilidade
+
+| Dispositivo | Recursos integrados |
+|---|---|
+| **Logitech G Pro X Superlight original** | DPI e taxa de atualização anunciados pelo mouse, modo software/memória e leitura de bateria. |
+| **Aula F75 por USB** | Identificação do modelo CD, efeitos internos, brilho e velocidade globais. |
+| **Aula F75 por receptor 2,4 GHz** | Identificação do modelo CD, efeitos internos, brilho e velocidade, com confirmação por releitura. |
+| **HyperX Cloud Flight** | Detecção e controles de volume/mudo de entrada e saída pelo áudio do Windows. |
+| **Logitech G Pro TKL com fio** | Detecção, fotografia e diagnóstico; configuração de RGB e remapeamento ainda não integrada. |
+| **Outros mouses e teclados** | Detecção e diagnóstico conforme os dados expostos pelo Windows; configuração depende do protocolo disponível. |
+
+**Detectar um dispositivo não significa oferecer configuração universal.** Atualização de firmware, macros, remapeamento, gravação de perfis na memória interna e bateria/DSP do headset ainda não fazem parte das integrações disponíveis.
+
+No F75, a configuração por **Bluetooth não está integrada**. Em 2,4 GHz, acorde o teclado com uma tecla e use **Atualizar** caso ele esteja em repouso. A presença do receptor, sozinha, não comprova uma conexão ativa.
+
+## Dados reais e desempenho
+
+O aplicativo não preenche leituras ausentes com valores simulados. Níveis diferentes de iluminação são apresentados como mistos; uma falha de leitura permanece identificada como falha.
+
+A detecção ocorre ao abrir, retornar à janela, atualizar manualmente ou receber uma alteração de dispositivos do Windows. Não há consulta periódica de hardware, serviço de fundo ou telemetria. O acesso HID é serializado, as operações nativas rodam fora da interface e as páginas secundárias são carregadas sob demanda.
+
+A busca de fotos pode ser desativada em **Ajustes**. Suas consultas usam marca e nome público do modelo; caminhos HID, números de série e configurações não fazem parte do pedido de imagem. Histórico de bateria, fotos escolhidas e perfis ficam locais.
+
+O teste manual de entrada recebe eventos somente enquanto sua área está em foco. Ele não identifica qual periférico físico gerou o evento e não mede a taxa USB nem a latência do sensor. O diagnóstico de leitura não altera configurações.
+
+## Desenvolvimento
+
+### Requisitos
+
+- Windows x64.
+- Node.js **22.12 ou superior**, com npm.
+- Rust e Cargo.
+- Ferramentas C++ do Visual Studio.
+- Microsoft Edge WebView2 Runtime.
+
+### Executar localmente
 
 ```powershell
 git clone https://github.com/hugotakeda/Central-Hub.git
@@ -32,91 +98,37 @@ npm ci
 npm run tauri dev
 ```
 
-For a release build, run `npm run tauri build`. For frontend checks, run `npm test` and `npm run check`. Native unit tests: `cargo test --manifest-path src-tauri/Cargo.toml --lib`. The two physical hardware-write tests are ignored by default and should only be run intentionally on the appropriate device. A browser-only preview cannot access native hardware.
+A porta **1420** precisa estar livre. A prévia no navegador serve para a interface; o acesso ao hardware exige o aplicativo Windows.
 
-The v0.9.1 validation passed 42 frontend tests and 30 native unit tests. See [validation notes](docs/VALIDACAO.md), [wireless F75 details](docs/F75-SEM-FIO.md), [online photos](docs/FOTOS-ONLINE.md), and [product image credits](public/products/SOURCES.md). Product photos and trademarks belong to their respective owners; the credits do not grant a license to those assets.
-
-## Documentação em português
-
-Aplicativo Windows x64, local, com interface preto/grafite e dados reais de periféricos.
-
-## Detecção
-
-A tela principal mostra somente periféricos físicos classificados como mouse, teclado ou headset. Receptores genéricos, áudio da placa-mãe, controladores internos e interfaces virtuais ficam na página Interfaces, sem gerar cartões nem buscas automáticas de foto na tela principal. O seletor de Teste de hardware usa a mesma lista de periféricos. Outros mouses e teclados continuam aparecendo pelo tipo informado pelo Windows, mesmo sem entrada no catálogo ou integração de configuração.
-
-Coleções, interfaces de entrada e áudio são agrupadas pelo Container ID do Windows, convertido em hash local. A detecção usa metadados e consultas de identificação apenas nos protocolos já conhecidos; não envia comandos arbitrários aos demais aparelhos. O receptor presente não comprova link sem fio. Um dispositivo ausente do próprio Windows não pode ser detectado pelo app.
-
-G Pro TKL com fio: identificação de catálogo por 046D:C339 ou nome correspondente e foto oficial local. Não confunde o teclado virtual do G HUB (C232) com o G Pro físico. Outros modelos são exibidos pelo nome/uso informado pelo Windows. Não há identificação de switch, cor ou versão por suposição.
-
-Aula F75 em 2,4 GHz: identificação pelo modelo CD retornado no protocolo do receptor, foto e diagnóstico. Se estiver dormindo, pressione uma tecla e atualize. O receptor genérico sozinho não gera cartão. Iluminação e perfis do F75 continuam sendo configurados por cabo USB. Detalhes: docs/F75-SEM-FIO.md.
-
-## Controles
-
-| Produto | Configuração integrada |
-|---|---|
-| Superlight original | DPI e polling anunciados pelo mouse, modo software/memória e leitura de bateria |
-| Aula F75 USB, modelo CD confirmado | Efeitos internos 0–18, brilho e velocidade globais |
-| Áudio Windows, incluindo Cloud Flight e dispositivos genéricos | Volume e mudo dos endpoints ativos de entrada/saída |
-| G Pro TKL e demais modelos HID/PnP | Detecção, foto quando disponível, dados e teste; protocolo de configuração ainda não integrado |
-
-Valores só aparecem quando foram lidos. Ajustes são explícitos e seguidos de releitura; revisão do estado evita sobrescrever mudanças de outro software. DPI/polling alteram o estado ativo, sem regravar perfis onboard. O modo software é ativado somente por pedido explícito. G HUB pode substituir os valores ativos. O F75 exige USB e preserva os bytes não relacionados ao ajuste.
-
-## Interface
-
-Cartões com fabricante, tipo, conexão e bateria/polling quando disponíveis. Página com Visão geral, Desempenho/Configuração, Avançado e Perfis. Detalhes incluem VID/PID, barramento, usos, driver Windows, modelo retornado e configurações lidas. Firmware não consultado não recebe versão fictícia nem indicação de atualização.
-
-Histórico de bateria local dos últimos 7 dias, limitado a 100 leituras por dispositivo. Registra apenas consultas que já ocorreriam no uso do app. O gráfico só aparece após duas leituras; não há polling adicional.
-
-Perfis locais começam vazios. Salve os valores realmente lidos e aplique explicitamente; até 20 por modelo. As opções são validadas contra o aparelho atual. Uma falha interrompe a sequência e relê o estado; ajustes anteriores confirmados podem permanecer. Não há rollback oculto nem gravação de perfis na memória interna do mouse. Níveis mistos do F75 são preservados pelo perfil quando não representam um valor global.
-
-## Teste de hardware
-
-Teste explícito e de leitura: nova enumeração, presença PnP/HID/áudio, metadados, versão de driver e consulta de configuração nos modelos integrados. Resultado por etapa: confirmado, falhou ou não verificado. Não altera configurações, reproduz áudio, grava microfone ou escreve firmware. Não certifica integridade física nem compatibilidade completa.
-
-Relatório JSON exportável, com dados do aparelho selecionado, resultados e tempo real da execução. Avançado também exporta um diagnóstico. Não são incluídos caminhos HID ou números de série; IDs locais são hashes. Nenhum relatório é enviado automaticamente.
-
-Teste manual de teclas, cliques e scroll captura apenas a área em foco; Tab/Esc ou perda de foco encerra a captura. Eventos ficam na sessão, não são armazenados nem enviados. O navegador não atribui esses eventos a um aparelho físico específico, por isso o usuário deve isolar o periférico em teste. Não mede polling USB ou latência do sensor.
-
-## Fotos e marca
-
-Fotos locais de catálogo: Superlight rosa, Aula F75 preto, Cloud Flight e G Pro TKL com fio. Layout, iluminação e switches da foto podem variar; não representam o estado atual do aparelho. Para modelos sem foto local, busca online automática com fonte e cache; quando não houver correspondência ou acesso, mantém o ícone de categoria. É possível escolher uma foto local PNG/JPG/WebP de até 250 KB, limitada a 10 fotos, armazenada por aparelho.
-
-Monograma CH vetorial em branco, com fundo preto/grafite. Fontes em public/brand e public/icon.svg. A janela não tem barra nativa. Passe o mouse no canto superior direito ou use Tab para revelar os controles; arraste a faixa superior transparente para mover. Alt+F4 fecha a janela.
-
-## Executar e compilar
-
-Feche a versão antiga antes de abrir a nova: há uma única instância por aplicativo.
-
-Requisitos de desenvolvimento: Node.js 22.12+, Rust, ferramentas C++ do Visual Studio e WebView2.
-
-```powershell
-npm ci
-npm run tauri dev
-```
-
-Porta 1420 deve estar livre. A prévia web não acessa hardware; use o app Windows.
+### Verificar e compilar
 
 ```powershell
 npm test
-npm run build
+npm run check
 cargo test --manifest-path src-tauri/Cargo.toml --lib
-cargo check --manifest-path src-tauri/Cargo.toml
 npm run tauri build
 ```
 
-Executável: src-tauri/target/release/central-hub.exe.
-Instalador: src-tauri/target/release/bundle/nsis/Central Hub_0.9.1_x64-setup.exe.
-Diagnóstico de leitura: cargo run --manifest-path src-tauri/Cargo.toml --bin hub-diagnostics.
-Teste de leitura: mesmo comando com -- --test IDENTIDADE_FISICA.
+O executável é gerado em `src-tauri/target/release/central-hub.exe`. O instalador fica em `src-tauri/target/release/bundle/nsis/`.
 
-Os dois testes antigos de escrita física F75 ficam ignorados por padrão; só devem ser invocados explicitamente quando houver intenção de alterar temporariamente/restaurar o hardware. Não fazem parte da execução do novo botão Teste de hardware.
+A versão **0.0.2** passou em **45 testes de frontend e 35 testes unitários nativos**. Dois testes físicos sem fio também foram executados explicitamente, com alterações, releitura e restauração dos ajustes originais. Os quatro testes de escrita física são ignorados na execução comum; só devem ser acionados com intenção de modificar temporariamente o hardware e restaurá-lo.
 
-## Desempenho e limites
+## Documentação técnica
 
-Sem consultas periódicas de hardware, serviço de fundo, telemetria ou blur. Downloads ocorrem somente na busca de fotos online, quando ativada. Detecção ao abrir, retornar à janela, atualizar ou receber evento PnP com debounce. Leituras adicionais restritas aos modelos com configuração integrada. Páginas secundárias sob demanda; histórico e fotos limitados; configuração nativa em worker e acesso HID serializado.
+| Documento | Conteúdo |
+|---|---|
+| [Arquitetura](docs/ARQUITETURA.md) | Organização do aplicativo e comunicação com o hardware. |
+| [Protocolos](docs/PROTOCOLOS.md) | Referências técnicas de identificação e configuração. |
+| [Aula F75 sem fio](docs/F75-SEM-FIO.md) | Transporte 2,4 GHz, validação e limites da integração. |
+| [Fotos online](docs/FOTOS-ONLINE.md) | Busca, cache, privacidade e correção das sugestões. |
+| [Validação](docs/VALIDACAO.md) | Testes executados, evidências e limitações conhecidas. |
 
-Detecção ampla não significa configuração universal: firmware, macros, remapeamento, gravação de perfis onboard, DSP/LED e bateria do headset continuam fora das integrações disponíveis. A lista depende do que o Windows e os drivers expõem.
+## Relatar problemas
 
-Fotos online: [como funciona, fontes e limites](docs/FOTOS-ONLINE.md). Fotos sugeridas não alteram a identidade ou os recursos do hardware. O modelo da busca pode ser corrigido na página do dispositivo; Ajustes permite desativar a busca e limpar seu cache.
+Abra uma [issue](https://github.com/hugotakeda/Central-Hub/issues) informando a versão do Central Hub, o modelo do periférico, o modo de conexão e os passos para reproduzir o problema. Se anexar um diagnóstico exportado, revise seu conteúdo antes de publicá-lo.
 
-Fontes e validação: docs/PROTOCOLOS.md, docs/VALIDACAO.md, docs/ARQUITETURA.md e public/products/SOURCES.md.
+## Créditos
+
+As fotografias e marcas pertencem aos respectivos titulares. As origens estão documentadas em [Fontes das imagens](public/products/SOURCES.md); esses créditos não atribuem às imagens uma licença do código.
+
+As referências de protocolo estão nos documentos técnicos. O aplicativo usa implementações próprias em Rust e não incorpora os drivers completos dos projetos citados.

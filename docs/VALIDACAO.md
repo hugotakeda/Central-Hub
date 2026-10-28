@@ -1,6 +1,20 @@
-# Validação — Central Hub 0.9.1
+# Validação — Central Hub 0.0.2
 
 Windows x64, 27/10/2026.
+
+## Lançamento 0.0.2 — configuração F75
+
+Numeração pública reiniciada em 0.0.2 por decisão do projeto; as versões 0.9.x abaixo registram o histórico de desenvolvimento.
+
+45 testes frontend e 35 testes unitários nativos passaram. Quatro testes de escrita física são ignorados na execução comum. Os dois novos testes sem fio foram executados explicitamente e passaram: efeito/brilho/velocidade com backup e restauração dos dados originais; e alteração/restauração de efeito pela API normal do aplicativo com validação da revisão.
+
+O F75 USB respondeu modelo CD e leitura de efeito 15, brilho misto e velocidade 4 antes da mudança. A consulta sem fio também leu efeito 15 e níveis mistos reais. Não foram inventados valores para substituir diferenças por efeito. O caminho de configuração USB foi preservado; as escritas USB antigas não foram repetidas nesta atualização.
+
+A primeira tentativa física sem fio falhou por exigir eco de SAVE, que este receptor não retorna. O backup foi mantido; após corrigir a confirmação para a releitura completa, a restauração original e os testes de ajustes passaram. A nova implementação não usa templates/paletas de fábrica. F75-SEM-FIO.md documenta limites e procedimentos.
+
+O botão Configurar agora seleciona diretamente a aba de ajustes. Testes cobrem a navegação, configuração sem fio, brilho zero conforme transporte e rejeição de perfis incompatíveis.
+
+Revisão da janela nativa 0.0.2: três cartões (Superlight, Aula F75 e Cloud Flight), F75 identificado em 2,4 GHz com fotografia e botão Configurar. A aba Configuração foi observada com os três formulários de efeito, brilho global e velocidade global, leitura identificada como 2,4 GHz e valores retornados pelo teclado. Receptores genéricos e controladores internos não apareceram na tela principal. A compilação Windows e o instalador NSIS concluíram sem erros.
 
 ## Correção da lista e F75 sem fio 0.9.1
 
